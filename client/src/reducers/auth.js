@@ -48,7 +48,7 @@ export default function(state = initialState, action) {
                     user: 'loggedOut'
                 }
 
-        default: 
+        default:     
             return {
                 ...state
             }

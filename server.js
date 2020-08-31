@@ -18,7 +18,7 @@ app.use('/api/words', require('./routes/words'));
 app.use('/api/lists', require('./routes/lists'));
 app.use('/api/user', require('./routes/auth'));
 
-app.get('/', (req, res) => {
+app.get('/', (req, res) => {  
     res.send('Hello Express');
 })
 

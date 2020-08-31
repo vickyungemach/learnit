@@ -7,6 +7,7 @@ export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const LOGOUT = 'LOGOUT';
 
+
 // Load user
 export const loadUser = () => async dispatch => {
 
@@ -22,6 +23,7 @@ export const loadUser = () => async dispatch => {
     } catch (err) {
         console.log(err.message);
     }
+
 }
 
 // Login user

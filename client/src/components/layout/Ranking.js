@@ -8,7 +8,7 @@ const Ranking = ({ words: { words } }) => {
         {
             emoji: '🎓',
             title: 'Level 10: Graduated',
-            count: words.filter(word => word.rating >= 28 && word.rating <= 30).length,
+            count: words.filter(word => word.rating >= 28 && word.rating <= 40).length,
             words: words.filter(word => word.rating >= 28 && word.rating <= 30)
         },
         {
@@ -49,7 +49,7 @@ const Ranking = ({ words: { words } }) => {
         },
         {
             emoji: '📖',
-            title: 'Level 3: Needs word',
+            title: 'Level 3: Needs work',
             count: words.filter(word => word.rating >= 7 && word.rating <= 9).length,
             words: words.filter(word => word.rating >= 7 && word.rating <= 9)
         },
@@ -81,7 +81,7 @@ const Ranking = ({ words: { words } }) => {
         <div className='review ranking' id="ranking">
             {
                 allLevels
-                    .filter((level, index) => index > startIndex )
+                    .filter((level, index) => index >= startIndex )
                     .map((level, index) => (
                     <RankingItem key={index} level={level} />
                 ))
