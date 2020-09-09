@@ -46,6 +46,7 @@ const Login = ({ login, loadUser, history, isAuthenticated, user }) => {
                         <input type="password" name="password" id="password" placeholder="Password"  value={password} onChange={onChange}/>
                         <button type="submit" className="btn">Login</button>
                         <Link to="/register">Register</Link>
+                    </form>
                 </div>
             </div>
         </div>

@@ -61,7 +61,7 @@ const Landing = ({ words: { count, loading }, startReview, openRanking, review: 
         <div className="landing">
             
                 { !loading && !loadingList ? list.length === 0 ? gold : silver : '' }
-                <button onClick={openRanking}>Ranking</button>
+                {/* <button onClick={openRanking}>Ranking</button> */}
                 
             <Footer />
         </div>
