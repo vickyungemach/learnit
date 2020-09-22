@@ -4,13 +4,15 @@
     left: 0;
     width: 100%;
     height: 13vh;
-    background: linear-gradient(-140deg, $teal-light, $teal-medium);
+    // background: linear-gradient(-140deg, $teal-light, $teal-medium);
+    box-shadow: 0 0 10px #ccc;
     display: flex;
     z-index: 100;
 
     h1 {
         font-family: Lobster Two;
         color: white;
+        color: $teal-medium;
         font-weight: 400;
         margin: auto;
     }
@@ -29,6 +31,7 @@
         width: 3rem;
         height: 2px;
         background-color: white;
+        background-color: $teal-medium;
         margin: 3px;
         border-radius: 1.5rem;
     }
