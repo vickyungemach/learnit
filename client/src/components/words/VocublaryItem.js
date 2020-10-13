@@ -1,26 +1,30 @@
-import React, { Fragment } from 'react';
-import chevronright from '../../img/icons/chevron-right-icon.png';
+import React from 'react';
 import { connect } from 'react-redux';
 import DelayLink from 'react-delay-link';
 
-const VocabularyItem = ({title, words}) => {
+const VocabularyItem = ({ title, words }) => {
 
     const action = () => {
-        document.getElementById('slide-vocabulary').classList.add('slide-out');
+        document.getElementById('slide-vocabulary').classList.add('slide-out-page');
     }
 
     return (
-        <Fragment>
-            <DelayLink delay={300} to={`/vocabulary/${title}`} clickAction={action} replace={false} >
-            <li className="vocabulary-list-item">
-                <div className="vocabulary-list-item_info">
-                    <h2 className="vocabulary-list-item_title">{title}</h2>
-                    <p className="vocabulary-list-item_count">{ words.words.filter(word => word.list.title === title).length } Words</p>
+        <DelayLink delay={300} to={`/vocabulary/${title}`} clickAction={action} replace={false} >
+            <div className="vocabulary-list_item">
+
+                {/* <img className="vocabulary-list_item--art hide-mobile" src={chapterArt01} alt="" /> */}
+
+                <div className="vocabulary-list_item--text">
+                    <h3>{title}</h3>
+                    <p>{words.words.filter(word => word.list.title === title).length} Words</p>
                 </div>
-                <img className="vocabulary-list-item_chevron"  src={chevronright} alt="chevron right" />
-            </li>
-            </DelayLink>
-        </Fragment>
+
+
+                <div className="vocabulary-list_item--chevron">
+                    <i className="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </DelayLink>
     )
 }
 
@@ -30,3 +34,7 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(VocabularyItem);
+
+
+
+

@@ -1,15 +1,52 @@
+.slide-container {
+    background-color: #fff;
+    display: none;
+    overflow: hidden;
+    transform: translateY(200%);
+    transition: all .3s;
+    height: 88vh;
+}
+
+.slide-in {
+    display: block;
+    position: absolute;
+    top: 12vh;
+    transform: translateY(0);
+}
+
+
 
 // Slide container out
-.slide-out {
+.slide-out-page {
     transform: translateX(-100%);
 }
 
 
 // Sliding container in
-.pre-slide-in { 
+.pre-slide-in-page { 
     transform: translateX(20%);
 }
 
-.slide-in {
+.slide-in-page {
     transform: translateX(0%);
+}
+
+
+// Desktop
+
+@media only screen and (min-width : $desktop) {
+    // Slide container out
+.slide-out-page {
+    transform: translateX(0%);
+}
+
+
+// Sliding container in
+.pre-slide-in-page { 
+    transform: translateX(0%);
+}
+
+.slide-in-page {
+    transform: translateX(0%);
+}
 }

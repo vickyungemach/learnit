@@ -2,30 +2,31 @@ import React, { Fragment, useEffect } from 'react';
 import WordListHeading from '../words/WordListHeading';
 import WordListItem from '../words/WordListItem';
 import { connect } from 'react-redux';
-import AddWords from './AddWords';
 import { setURL, getWords, getLists, clearEdit, openEdit } from '../../actions/words';
-import Settings from '../layout/Settings';
+import EditForm from './EditForm';
 
 const WordList = ({ match, words: { words, lists }, setURL, getWords, getLists, clearEdit, openEdit }) => {
     useEffect(() => {
         setURL();
         getWords();
         getLists();
-        document.getElementById('slide-wordlist').classList.add('slide-in');
+        document.getElementById('slide-wordlist').classList.add('slide-in-page');
     }, [getLists, getWords, setURL])
     
+
+
     // Slide up form to add words
     const slideUpForm = () => {
-        document.getElementById('slide-form').classList.add('slide-up-form');
+        document.getElementById('full-screen-form').classList.add('slide-in');
         openEdit('createWord');
     }
 
     // Slide down form when clicking outside of form
     const slideDownForm = (e) => {
-        if(e.target.classList.contains('container')) {
+        if (e.target.classList.contains('container')) {
 
             // Slide Form container down
-            document.getElementById('slide-form').classList.remove('slide-up-form');
+            document.getElementById('slide-form').classList.remove('slide-in');
 
             // Clear form data
             clearEdit();
@@ -35,13 +36,14 @@ const WordList = ({ match, words: { words, lists }, setURL, getWords, getLists, 
     
     return (
         <Fragment>
-            <div id="slide-wordlist" className="container pre-slide-in"  onClick={slideDownForm}>
+            <div id="slide-wordlist" className="container pre-slide-in-page">
                 <WordListHeading 
                     title={match.params.title} 
                     count={words.filter(word => word.list.title === match.params.title).length} 
                     id = {lists.filter(list => list.title === match.params.title)[0]}
                  />
-                <ul className="word-list">
+
+                <div className="word-list">
                     {
                         words
                         .filter(word => word.list.title === match.params.title)
@@ -50,17 +52,14 @@ const WordList = ({ match, words: { words, lists }, setURL, getWords, getLists, 
                         ))
                     }
                    
-                </ul>
-
-                <div className="slide-form" id="slide-form">
-                    <AddWords listTitle={match.params.title} listId = {lists.filter(list => list.title === match.params.title)[0]} />
                 </div>
-                <Settings />
-            </div>
 
-            <div className="btn-round btn-gold fixed-bottom"  onClick={slideUpForm} >
-                <i className="fas fa-plus"></i>
-            </div>
+
+            </div>               
+             <div className="container slide-container" id="full-screen-form">
+                    <EditForm listTitle={match.params.title} listId = {lists.filter(list => list.title === match.params.title)[0]} />
+                </div>
+
         </Fragment>
     )
 }

@@ -1,0 +1,57 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 62.5%;
+  font-family: Lato;
+}
+
+body {
+  position: relative;
+  font-size: 1.6rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  height: 88vh;
+  position: relative;
+  width: 100vw;
+  overflow: scroll;
+  transition: all 0.2s;
+}
+
+.hide-mobile {
+  display: none;
+}
+
+
+/* ===================================
+   Desktop
+==================================== */
+
+@media only screen and (min-width : $desktop) {
+
+  .container {
+    background-color: rgba($color: $grey-header, $alpha: .42);
+    padding: 0 25vw;
+    overflow: scroll;
+  }
+
+  .hide-mobile {
+    display: block;
+  }
+
+  .hide-desktop {
+    display: none;
+  }
+  
+}

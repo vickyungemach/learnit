@@ -1,5 +1,4 @@
 import React from 'react';
-import RankingList from '../pages/RankingList';
 
 const RankingItem = ({ level }) => {
 

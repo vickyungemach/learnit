@@ -3,8 +3,6 @@ import VocabularyHeading from '../words/VocabularyHeading';
 import VocabularyItem from '../words/VocublaryItem';
 import { connect } from 'react-redux';
 import { getWords, getLists, setURL } from '../../actions/words';
-import AddWords from './AddWords';
-import Settings from '../layout/Settings';
 
 
 const Vocabulary = ({ lists, getWords, getLists, setURL }) => {
@@ -18,31 +16,26 @@ const Vocabulary = ({ lists, getWords, getLists, setURL }) => {
 
     // Slide down form when clicking outside of form
     const slideDownForm = (e) => {
-        if (e.target.classList.contains('container')) {
-            const slideForm = document.getElementById('slide-form');
-            slideForm.classList.remove('slide-up-form');
-        }
+        const slideForm = document.getElementById('slide-form');
+        slideForm.classList.remove('slide-in');
     }
 
     return (
-        <div>
-            <div id="slide-vocabulary" className="container" onClick={slideDownForm}>
-
+        <div id="slide-vocabulary"  className="container">
+            
                 <VocabularyHeading />
-                <ul className="vocabulary-list">
+                <div className="vocabulary-list">
                     {
                         lists.map(list => (
                             <VocabularyItem key={list._id} title={list.title} />
                         ))
                     }
 
-                </ul>
-                <div className="slide-form" id="slide-form">
-                    <AddWords />
                 </div>
-                <Settings />
+                {/* <div className="slide-form" id="slide-form">
+                    <AddWords />
+                </div> */}
             </div>
-        </div>
 
     )
 }

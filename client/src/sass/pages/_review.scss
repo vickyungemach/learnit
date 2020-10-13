@@ -8,10 +8,6 @@
     left: 0;
     width: 100vw;
     height: 87vh;
-    z-index: 99;
-    transform: translateY(100%);
-    transition: all .5s;
-    background-color: white;
 
     .english-word {
         margin-bottom: 5rem;
@@ -38,7 +34,7 @@
         font-weight: 700;
         background-color: linen;
         padding: 10rem 2rem;
-        top: -35%;
+        top: -30%;
         background-color: transparent;
         cursor: pointer;
 
@@ -48,11 +44,11 @@
     }
 
     .correct {
-        color: $green-correct;
+        color: #B8F18B;
     }
 
     .incorrect {
-        color: $red-incorrect;
+        color: #F86A79;
     }
  
 
@@ -61,8 +57,3 @@
 .review-input:focus {
     border: none !important;
 }
-
-.review-now {
-    transform: translateY(0%);
-}
-

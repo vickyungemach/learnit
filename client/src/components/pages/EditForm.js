@@ -3,7 +3,16 @@ import { connect } from 'react-redux';
 import { saveWord, updateWord, clearEdit, saveList, updateList } from '../../actions/words';
 
 
-const AddWords = ({ languages, listTitle, listId, saveWord, englishState, spanishState, wordIdState, listTitleState, listIdState, editMode, updateWord, clearEdit, saveList, updateList }) => {
+const EditForm = ({ languages, listTitle, listId, saveWord, englishState, spanishState, wordIdState, listTitleState, listIdState, editMode, updateWord, clearEdit, saveList, updateList }) => {
+
+    function closeForm() {
+        // Slide Form container down
+        document.getElementById('full-screen-form').classList.remove('slide-in');
+
+        // Clear form data
+        clearEdit();
+
+    }
 
     // useState [Add Word]
     const [formDataWord, setFormDataWord] = useState({
@@ -88,7 +97,7 @@ const AddWords = ({ languages, listTitle, listId, saveWord, englishState, spanis
 
             // Slide form down after editing word
             setTimeout(() => {
-                document.getElementById('slide-form').classList.remove('slide-up-form');
+                document.getElementById('full-screen-form').classList.remove('slide-in');
                 clearEdit();
             }, 300);
         }
@@ -113,20 +122,20 @@ const AddWords = ({ languages, listTitle, listId, saveWord, englishState, spanis
 
             // Slide form down after saving list
             setTimeout(() => {
-                document.getElementById('slide-form').classList.remove('slide-up-form');
+                document.getElementById('full-screen-form').classList.remove('slide-in');
                 clearEdit();
             }, 300);
 
-            
+
         }
 
         // Edit existing list
         if (editMode === 'editList') {
-           updateList(listIdState, { title: formDataList.trim() });
+            updateList(listIdState, { title: formDataList.trim() });
 
             // Slide form down after editing list
             setTimeout(() => {
-                document.getElementById('slide-form').classList.remove('slide-up-form');
+                document.getElementById('full-screen-form').classList.remove('slide-in');
                 clearEdit();
             }, 300);
         }
@@ -144,6 +153,9 @@ const AddWords = ({ languages, listTitle, listId, saveWord, englishState, spanis
         </Fragment>
     )
 
+
+
+
     // Form for creating/editing lists
     const listForm = (
         <Fragment>
@@ -156,7 +168,7 @@ const AddWords = ({ languages, listTitle, listId, saveWord, englishState, spanis
     )
 
     return (
-        <div className="container">
+        <div className="stitched-box edit-form full-screen">
             <div className="form-container">
 
                 {
@@ -164,6 +176,7 @@ const AddWords = ({ languages, listTitle, listId, saveWord, englishState, spanis
                 }
 
             </div>
+            <i className="fas fa-times edit-form--close full-screen--close" onClick={closeForm}></i>
         </div>
     )
 }
@@ -184,4 +197,4 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, { saveWord, updateWord, clearEdit, saveList, updateList })(AddWords);
+export default connect(mapStateToProps, { saveWord, updateWord, clearEdit, saveList, updateList })(EditForm);

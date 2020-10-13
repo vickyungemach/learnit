@@ -35,7 +35,7 @@ export const getReview = () => async dispatch => {
 export const startReview = () => async dispatch => {
     try {
         const review = document.getElementById("review");
-        review.classList.add("review-now");
+        review.classList.add("slide-in");
     } catch (err) {
         console.error(err.message);
     }
@@ -45,7 +45,7 @@ export const startReview = () => async dispatch => {
 export const openRanking = () => async dispatch => {
     try {
         const ranking = document.getElementById("ranking");
-        ranking.classList.add("review-now");
+        ranking.classList.add("slide-in");
     } catch (err) {
         console.error(err.message);
     }
@@ -57,8 +57,8 @@ export const closeReview = () => async dispatch => {
     try {
         const review = document.getElementById("review");
         const ranking = document.getElementById("ranking");
-        review.classList.remove("review-now");
-        ranking.classList.remove("review-now");
+        review.classList.remove("slide-in");
+        ranking.classList.remove("slide-in");
     } catch (err) {
         console.error(err.message);
     }
@@ -172,6 +172,30 @@ export const addTime = (rating) => async dispatch => {
                 return result;
             case 10:
                 result.setMonth(result.getMonth() + 4);
+                return result;
+            case 11:
+                result.setMonth(result.getMonth() + 5);
+                return result;
+            case 12:
+                result.setMonth(result.getMonth() + 6);
+                return result;
+            case 13:
+                result.setMonth(result.getMonth() + 7);
+                return result;
+            case 14:
+                result.setMonth(result.getMonth() + 8);
+                return result;
+            case 15:
+                result.setMonth(result.getMonth() + 9);
+                return result;
+            case 16:
+                result.setMonth(result.getMonth() + 10);
+                return result;
+            case 17:
+                result.setMonth(result.getMonth() + 11);
+                return result;
+            case 18:
+                result.setMonth(result.getMonth() + 12);
                 return result;
             default:
                 console.log(rating);

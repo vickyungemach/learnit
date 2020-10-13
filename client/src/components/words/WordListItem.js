@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { openEdit, deleteWord } from '../../actions/words';
 
@@ -8,24 +8,24 @@ const WordListItem = ({ word: { english, spanish, _id }, openEdit, deleteWord })
 
         let toggleElement;
 
-        if(e.target.tagName === 'P' || e.target.tagName === 'H2') {
-            toggleElement =  e.target.parentElement;
+        if (e.target.tagName === 'P' || e.target.tagName === 'H2') {
+            toggleElement = e.target.parentElement;
         } else {
-            toggleElement =  e.target;
+            toggleElement = e.target;
         }
 
-        const listItems = document.querySelectorAll('.word-list-item');
+        const listItems = document.querySelectorAll('.word-list_item');
 
         listItems.forEach(item => {
-            if(item.classList.contains('show-options') && !item.classList.contains(toggleElement.classList[1])) {
-                item.classList.remove('show-options');
+            if (item.classList.contains('show-edits') && !item.classList.contains(toggleElement.classList[1])) {
+                item.classList.remove('show-edits');
             }
         })
 
-        if(e.target.tagName === 'P' || e.target.tagName === 'H2') {
-            e.target.parentElement.classList.toggle('show-options');
+        if (e.target.tagName === 'P' || e.target.tagName === 'H2') {
+            e.target.parentElement.classList.toggle('show-edits');
         } else {
-            e.target.classList.toggle('show-options');
+            e.target.classList.toggle('show-edits');
         }
     }
 
@@ -39,7 +39,7 @@ const WordListItem = ({ word: { english, spanish, _id }, openEdit, deleteWord })
         });
 
         // Slide up edit form
-        document.getElementById('slide-form').classList.add('slide-up-form');
+        document.getElementById('full-screen-form').classList.add('slide-in');
     }
 
     const onDelete = () => {
@@ -49,19 +49,22 @@ const WordListItem = ({ word: { english, spanish, _id }, openEdit, deleteWord })
 
     return (
 
-        <Fragment>
-            <li className={`word-list-item ${_id}`}  onClick={toggleOptions}>
-                <h2 className="word-list-item_spanish">{spanish}</h2>
-                <p className="word-list-item_english">{english}</p>
-                <div className="word-list-item_options">
-                    <p className="word-list-item_edit" onClick={onEdit} >EDIT</p>
-                    <p className="word-list-item_delete" onClick={onDelete} >DELETE</p>
-                </div>
+        <div className={`word-list_item ${_id}`} onClick={toggleOptions}>
 
-            </li>
-        </Fragment>
+            <div className="word-list_item--text">
+                <h3>{spanish}</h3>
+                <p>{english}</p>
+            </div>
+
+            <div className="word-list_item--edits">
+                <i className="far fa-edit" onClick={onEdit}></i>
+                <i className="far fa-trash-alt" onClick={onDelete}></i>
+            </div>
+        
+        </div>
     )
 }
 
 
 export default connect(null, { openEdit, deleteWord })(WordListItem);
+

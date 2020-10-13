@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import useSound from 'use-sound';
 import { connect } from 'react-redux';
 import { nextCard, removeLastWord, addTime, wordUpdate } from '../../actions/review';
-// import Keyboard from './Keyboard';
 import bonusPoints from '../../sounds/bonus-points.mp3';
 
 
@@ -77,7 +76,7 @@ const Review = ({ review: { list, currentWord, translation, id, rating, loadingL
             } else {
                 setTimeout(() => {
                     removeLastWord(currentWord);
-                    review.classList.remove('review-now');
+                    review.classList.remove('slide-in');
                     resetReview();
                     updateCount();
                 }, 1000);
@@ -93,7 +92,7 @@ const Review = ({ review: { list, currentWord, translation, id, rating, loadingL
 
     const shrinkEnglish = () => {
         english !== null && english.classList.add("small");
-        spanish.focus();
+        document.getElementById("spanish").focus();
     }
 
 
@@ -120,7 +119,7 @@ const Review = ({ review: { list, currentWord, translation, id, rating, loadingL
                     resetReview();
                 }, 2500);
 
-            // Check if word is incorrect
+                // Check if word is incorrect
             } else if (word !== translation) {
 
                 spanish.classList.add("incorrect");
@@ -150,53 +149,27 @@ const Review = ({ review: { list, currentWord, translation, id, rating, loadingL
         }
     }
 
-    let uppercase = false;
-
-    const onKeyboardClick = (e) => {
-        console.log(uppercase);
-        shrinkEnglish();
-
-        // Check if a letter was clicked
-        if (e.target.innerHTML.length === 1) {
-            setWord(word + e.target.innerHTML);
-            uppercase = false;
-        }
-
-        // Check if delete was clicked 
-        if (e.target.innerHTML === 'del') {
-            setWord(word.slice(0, -1));
-        }
-
-        // Check if shift was clicked
-        if (e.target.innerHTML === 'shift') {
-            uppercase = true;
-        }
-
-        // Check if space was clicked
-        if (e.target.id === 'space') {
-            setWord(word + ' ');
-        }
-    }
-
-
 
 
     !loadingList && document.addEventListener('keydown', shrinkEnglish);
 
 
     return (
-        <div className='review' id="review" onKeyDown={shrinkEnglish}>
-            <h1 className="english-word" id="english">{currentWord}</h1>
-            <input
-                // readOnly={true}
-                autoCapitalize="none"
-                className="review-input"
-                id="spanish" type="text"
-                value={word}
-                onChange={onChange}
-                onKeyPress={keyboardAction}
-                onClick={shrinkEnglish} />
-            {/* <Keyboard onKeyboardClick={onKeyboardClick} uppercase={uppercase} /> */}
+        <div className="container slide-container" id="review">
+            <div className='review' id="review" onKeyDown={shrinkEnglish}>
+                <h1 className="english-word" id="english">{currentWord}</h1>
+                <input
+                    // readOnly={true}
+                    autoCapitalize="none"
+                    className="review-input"
+                    id="spanish" type="text"
+                    value={word}
+                    onChange={onChange}
+                    onClick={shrinkEnglish}
+                    onKeyPress={keyboardAction}
+                />
+
+            </div>
         </div>
 
     )
@@ -208,5 +181,3 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, { nextCard, removeLastWord, addTime, wordUpdate })(Review);
-
-

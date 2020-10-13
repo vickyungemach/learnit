@@ -4,52 +4,37 @@ import silverCircle from '../../img/graphics/silver-circle.png';
 import Footer from './Footer';
 import { connect } from 'react-redux';
 import { startReview, openRanking } from '../../actions/review';
+import book from '../../img/icons/book-icon.png';
+import chevronright from '../../img/icons/chevron-right-icon.png';
+import speechbubble from '../../img/icons/speechbubble-icon.png';
+import { Link } from 'react-router-dom';
 
 const Landing = ({ words: { count, loading }, startReview, openRanking, review: {list, loadingList} }) => {
+    
+    const windowClass = window.innerWidth < 1100 ? 'mobile' : 'desktop';
 
-    const counter = document.getElementById('counter');
-    
-    // Count total number of words up from 0 (Not implemented yet)
-    if(counter !== null) {
-        const updateCount = () => {
-            const counter = document.getElementById('counter');
-            const speed = 150;
-    
-            const target = +counter.getAttribute('data-target');
-            const count = +counter.innerText;
-    
-            const inc = Math.round(target / speed) ;
-    
-            if(count < target) {
-                counter.innerText = count + inc;
-                setTimeout(updateCount, 1);
-            } else {
-                counter.innerText = target;
-            }
-        }
-        updateCount();
-    }
     
     // Gold circle
     const gold = (
         <Fragment>
-            <div className="landing_review" onClick={openRanking}>
-                <h2 className="landing_review--title">All done!</h2>
-                <img className="landing_review--circle" src={goldCircle} alt="gold-circle"/>
-                <div className="landing_review--tag">
+            <div className={windowClass + "-landing_review"} onClick={openRanking}>
+                <h2 className={windowClass + "-landing_review--title"}>All done!</h2>
+                <img className={windowClass + "-landing_review--circle"} src={goldCircle} alt="gold-circle"/>
+                <div className={windowClass + "-landing_review--tag"} >
                 <p><span id="counter" data-target={count}>{count}</span> Words<span className="check-mark" id="check-mark">✓</span></p>
                 </div>
             </div>
     </Fragment>
     )
 
+
     // Silver circle
     const silver = (
         <Fragment>
-            <div className="landing_review" onClick={startReview}>
-                <h2 className="landing_review--title">Study!</h2>
-                <img className="landing_review--circle" src={silverCircle} alt="silver-circle" />
-                <div className="landing_review--tag" id="silver-tag">
+            <div className={windowClass + "-landing_review"} onClick={startReview} >
+                <h2 className={windowClass + "-landing_review--title"} >Study!</h2>
+                <img className={windowClass + "-landing_review--circle"} src={silverCircle} alt="silver-circle" />
+                <div className={windowClass + "-landing_review--tag"} id="silver-tag">
                     <p>{list.length}</p>
                 </div>
             </div>
@@ -58,10 +43,28 @@ const Landing = ({ words: { count, loading }, startReview, openRanking, review: 
 
 
     return (
-        <div className="landing">
+        <div className={windowClass + "-landing"}>
             
                 { !loading && !loadingList ? list.length === 0 ? gold : silver : '' }
-                {/* <button onClick={openRanking}>Ranking</button> */}
+                { !loading && !loadingList ? windowClass === "desktop" ? (
+                        <div className="desktop-landing_menu">
+                         <Link to="/vocabulary">
+                        <div className="desktop-landing_menu--card">
+                            <img className="icon" src={book} alt="book icon" />
+                            <h5>Vocabulary</h5>
+                            <img className="chevron" src={chevronright} alt="chevron right" />
+                        </div></Link>   
+                
+                        <div className="desktop-landing_menu--card">
+                            <img className="icon" id="speechbubble" src={speechbubble} alt="speech bubble icon" />
+                            <h5>Conjugation</h5>
+                            <img className="chevron" src={chevronright} alt="chevron right" />
+                        </div>
+                
+                    </div>
+                ) : null : '' }
+
+           
                 
             <Footer />
         </div>
@@ -74,4 +77,5 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, { startReview, openRanking })(Landing);
+
 

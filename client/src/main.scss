@@ -1,52 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lobster+Two:wght@400;700&family=Open+Sans:wght@300;400;600;700;800&display=swap');
-@import "sass/abstracts/variables";
-@import "sass/layout/header";
-@import "sass/layout/landing";
-@import "sass/layout/vocabulary";
-@import "sass/layout/review";
-@import "sass/layout/wordList";
-@import "sass/layout/ranking";
-@import "sass/layout/settings";
-@import "sass/layout/keyboard";
-@import "sass/components/button";
-@import "sass/components/form";
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@100;300;400;700;900&family=Lobster+Two&family=Open+Sans:wght@600;700&display=swap');
+
+// Base
+@import "sass/base/variables";
+@import "sass/base/reset";
+@import "sass/base/typogrophy";
+@import "sass/base/box";
+
+// Components 
+@import "sass/components/buttons";
+@import "sass/components/forms";
+@import "sass/components/cards";
 @import "sass/components/slide";
 
+// Layout
+@import "sass/layout/header";
+@import "sass/layout/footer";
+@import "sass/layout/edits";
 
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+// Pages
+@import "sass/pages/landing";
+@import "sass/pages/vocabulary";
+@import "sass/pages/wordlist";
+@import "sass/pages/auth";
+@import "sass/pages/review";
 
-html {
-  scroll-behavior: smooth;
-  font-size: 62.5%;
-  font-family: Open Sans;
-}
 
-body {
-  font-size: 1.6rem;
-}
-
-a {
-  text-decoration: none;
-}
-
-.container {
-  height: 87vh;
-  position: relative;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  transition: all 0.2s;
-}
-
-.not-centered {
-  height: auto; 
-}
