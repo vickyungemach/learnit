@@ -3,24 +3,18 @@ import { connect } from 'react-redux';
 import React from 'react';
 
 const PrivateRoute = ({ component: Component, auth: {isAuthenticated, loading, loginCheck}, ...rest }) => (
-    <Route  {...rest} render= {props => 
-        isAuthenticated && !loading ? (<Component {...props} />) : 
-        !isAuthenticated && !loginCheck ? null : 
-        !isAuthenticated && loginCheck && (<Redirect to="/login" />)
-        
-
-    } />
-
-
-
     // <Route  {...rest} render= {props => 
     //     isAuthenticated && !loading ? (<Component {...props} />) : 
-    //     !isAuthenticated && loading ? setTimeout(function(){
-    //         return (<Redirect to="/login" />)
-    //     }, 7000) : (<Component {...props} />)
-        
-
+    //     !isAuthenticated && !loginCheck ? null : 
+    //     !isAuthenticated && loginCheck && (<Redirect to="/login" />)
     // } />
+
+
+
+    <Route  {...rest} render= {props => 
+        isAuthenticated && !loading ? (<Component {...props} />) : 
+        !isAuthenticated && loading ? (<Redirect to="/login" />) : (<Component {...props} />)
+    } />
 )
 
 
