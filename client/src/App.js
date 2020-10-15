@@ -13,7 +13,8 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/auth/PrivateRoute';
-import { loadUser, loginCheck } from './actions/auth'; 
+// import { loadUser, loginCheck } from './actions/auth'; 
+import { loadUser } from './actions/auth'; 
 
 
 if (localStorage.token) {
@@ -23,7 +24,7 @@ if (localStorage.token) {
 const App = () => {
   useEffect(() => {
      store.dispatch(loadUser());
-     store.dispatch(loginCheck());
+    //  store.dispatch(loginCheck());
   }, [])
   
   return (

@@ -33,16 +33,16 @@ export const loadUser = () => async dispatch => {
 
 
 // Login Check to prevent /login flash
-export const loginCheck = () => async dispatch => {
+// export const loginCheck = () => async dispatch => {
 
-    setTimeout(function(){
-        dispatch({
-            type: CHECK_LOGIN
-        })
-        console.log('loggin checked');
-    }, 100);
+//     setTimeout(function(){
+//         dispatch({
+//             type: CHECK_LOGIN
+//         })
+//         console.log('loggin checked');
+//     }, 100);
 
-}
+// }
 
 // Login user
 export const login = (name, password) => async dispatch => {

@@ -11,7 +11,7 @@ const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: false,
     loading: true,
-    loginCheck: false,
+    // loginCheck: false,
     user: null
 }
 
@@ -28,11 +28,11 @@ export default function(state = initialState, action) {
                 user: payload
             }
 
-        case CHECK_LOGIN:
-            return {
-                ...state,
-                loginCheck: true
-            }
+        // case CHECK_LOGIN:
+        //     return {
+        //         ...state,
+        //         loginCheck: true
+        //     }
 
         case LOGIN_SUCCESS: 
         case REGISTER_SUCCESS:
