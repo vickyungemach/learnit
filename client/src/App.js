@@ -29,6 +29,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
+        <div className="window">
           <Header />
           <Switch>
             <PrivateRoute exact path='/' component={Home} />
@@ -38,6 +39,8 @@ const App = () => {
             <PrivateRoute exact path='/vocabulary/:title' component={WordList} />
             <PrivateRoute exact path='/add-words/:title' component={EditForm} />
           </Switch>
+
+          </div>
 
       </Router>
     </Provider>

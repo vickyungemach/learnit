@@ -21,6 +21,11 @@ a {
   text-decoration: none;
 }
 
+.window {
+  width: 100vw;
+  overflow-x: hidden !important;
+}
+
 .container {
   height: 88vh;
   position: relative;
