@@ -56,7 +56,6 @@ router.post('/login', async (req, res) => {
 
 
 router.get('/', protect, async (req, res) => {
-    console.log('User logged in!!');
 
     const user = await User.findById(req.user.id).select('-password');
 
