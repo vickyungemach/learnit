@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
-import goldCircle from '../../img/graphics/gold-circle.png';
-import silverCircle from '../../img/graphics/silver-circle.png';
-import Footer from './Footer';
+import goldCircle from '../../../img/graphics/gold-circle.png';
+import silverCircle from '../../../img/graphics/silver-circle.png';
+import Footer from '../../layout/Footer';
 import { connect } from 'react-redux';
-import { startReview, openRanking } from '../../actions/review';
-import book from '../../img/icons/book-icon.png';
-import chevronright from '../../img/icons/chevron-right-icon.png';
-import speechbubble from '../../img/icons/speechbubble-icon.png';
+import { startReview, openRanking } from '../../../actions/review';
+import book from '../../../img/icons/book-icon.png';
+import chevronright from '../../../img/icons/chevron-right-icon.png';
+import speechbubble from '../../../img/icons/speechbubble-icon.png';
 import { Link } from 'react-router-dom';
 
 const Landing = ({ words: { count, loading }, startReview, openRanking, review: {list, loadingList} }) => {

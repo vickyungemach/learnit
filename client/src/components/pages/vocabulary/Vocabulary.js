@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import VocabularyHeading from '../words/VocabularyHeading';
-import VocabularyItem from '../words/VocublaryItem';
+import VocabularyHeading from './VocabularyHeading';
+import VocabularyItem from './VocublaryItem';
 import { connect } from 'react-redux';
-import { getWords, getLists, setURL } from '../../actions/words';
+import { getWords, getLists, setURL } from '../../../actions/words';
 
 
 const Vocabulary = ({ lists, getWords, getLists, setURL }) => {

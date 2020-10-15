@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import RankingItem from '../words/RankingItem';
+import RankingItem from './RankingItem';
 
 const Ranking = ({ words: { words } }) => {
 

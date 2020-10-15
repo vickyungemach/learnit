@@ -1,18 +1,19 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import { openEdit, saveWord } from '../../actions/words';
+import { openEdit, saveWord } from '../../../actions/words';
 
 
 const WordListHeading = ({ languages, title, id, count, openEdit, saveWord }) => {
 
-    // useState [Add Word]
-    const [word, setWord] = useState({
+     // useState [Add Word]
+     const [word, setWord] = useState({
         spanish: '',
         english: ''
     })
 
     const { spanish, english } = word;
 
+    
     // Handle onChange word edits 
     const onWordChange = (e) => {
 
@@ -20,6 +21,8 @@ const WordListHeading = ({ languages, title, id, count, openEdit, saveWord }) =>
             ...word,
             [e.target.name]: e.target.value
         })
+
+        console.log(document.activeElement);
     }
 
 
@@ -98,11 +101,11 @@ const WordListHeading = ({ languages, title, id, count, openEdit, saveWord }) =>
 
             {/* Add New Word */}
             <div className="stitched-box edit-form" id="desktop-add-form" >
-                <div className="form-container">
+            <div className="form-container">
                     <h1 className="form-heading">Add new word:</h1>
                     <form onSubmit={onWordSubmit}>
-                        <input id="spanish" autoCapitalize="none" type="text" placeholder={languages[1]} name="spanish" value={spanish} onChange={onWordChange} />
-                        <input className="mt-2" autoCapitalize="none" type="text" placeholder={languages[0]} name="english" value={english} onChange={onWordChange} />
+                        <input autoCapitalize="none" id="spanish" type="text" placeholder={languages[1]} name="spanish" value={spanish} onChange={onWordChange} />
+                        <input autoCapitalize="none" type="text" placeholder={languages[0]} name="english" value={english} onChange={onWordChange} />
                         <button className="mt-4" type="submit">Save word</button>
                     </form>
                 </div>

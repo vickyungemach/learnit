@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { openEdit, deleteWord } from '../../actions/words';
+import { openEdit, deleteWord } from '../../../actions/words';
 
 const WordListItem = ({ word: { english, spanish, _id }, openEdit, deleteWord }) => {
 

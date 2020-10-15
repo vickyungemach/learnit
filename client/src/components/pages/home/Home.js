@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import Landing from '../layout/Landing';
-import Review from '../layout/Review';
-import { getWords, getLists } from '../../actions/words';
-import { getReview } from '../../actions/review';
+import Landing from './Landing';
+import Review from './Review';
+import { getWords, getLists } from '../../../actions/words';
+import { getReview } from '../../../actions/review';
 import { connect } from 'react-redux';
 
 

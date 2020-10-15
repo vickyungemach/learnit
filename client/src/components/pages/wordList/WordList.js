@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect } from 'react';
-import WordListHeading from '../words/WordListHeading';
-import WordListItem from '../words/WordListItem';
+import WordListHeading from './WordListHeading';
+import WordListItem from './WordListItem';
 import { connect } from 'react-redux';
-import { setURL, getWords, getLists, clearEdit, openEdit } from '../../actions/words';
-import EditForm from './EditForm';
+import { setURL, getWords, getLists, clearEdit, openEdit } from '../../../actions/words';
+import EditForm from '../../layout/EditForm';
 
 const WordList = ({ match, words: { words, lists }, setURL, getWords, getLists, clearEdit, openEdit }) => {
     useEffect(() => {

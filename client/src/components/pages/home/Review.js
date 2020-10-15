@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import useSound from 'use-sound';
 import { connect } from 'react-redux';
-import { nextCard, removeLastWord, addTime, wordUpdate } from '../../actions/review';
-import bonusPoints from '../../sounds/bonus-points.mp3';
+import { nextCard, removeLastWord, addTime, wordUpdate } from '../../../actions/review';
+import bonusPoints from '../../../sounds/bonus-points.mp3';
 
 
-const Review = ({ review: { list, currentWord, translation, id, rating, loadingList }, nextCard, removeLastWord, addTime, wordUpdate }) => {
+const Review = ({ review: { list, currentWord, translation, id, rating, loadingList, reviewMode }, nextCard, removeLastWord, addTime, wordUpdate }) => {
     const [play] = useSound(bonusPoints);
     const [word, setWord] = useState('');
 
@@ -151,7 +151,7 @@ const Review = ({ review: { list, currentWord, translation, id, rating, loadingL
 
 
 
-    !loadingList && document.addEventListener('keydown', shrinkEnglish);
+    !loadingList && reviewMode === true && document.addEventListener('keydown', shrinkEnglish);
 
 
     return (

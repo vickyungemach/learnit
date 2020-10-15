@@ -7,6 +7,8 @@ export const CORRECT_ANSWER = 'CORRECT_ANSWER';
 export const INCORRECT_ANSWER = 'INCORRECT_ANSWER'
 export const REMOVE_WORD = 'REMOVE_WORD';
 export const UPDATE_WORD = 'UPDATE_WORD';
+export const START_REVIEW = 'START_REVIEW';
+export const CLOSE_REVIEW = 'CLOSE_REVIEW';
 
 
 
@@ -36,6 +38,10 @@ export const startReview = () => async dispatch => {
     try {
         const review = document.getElementById("review");
         review.classList.add("slide-in");
+
+        dispatch({
+            type: START_REVIEW
+        })
     } catch (err) {
         console.error(err.message);
     }
@@ -59,6 +65,10 @@ export const closeReview = () => async dispatch => {
         const ranking = document.getElementById("ranking");
         review.classList.remove("slide-in");
         ranking.classList.remove("slide-in");
+
+        dispatch({
+            type: CLOSE_REVIEW
+        })
     } catch (err) {
         console.error(err.message);
     }

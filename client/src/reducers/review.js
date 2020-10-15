@@ -4,7 +4,9 @@ import {
     INCORRECT_ANSWER,
     REMOVE_WORD,
     UPDATE_WORD,
-    GET_EMPTY_REVIEW
+    GET_EMPTY_REVIEW,
+    START_REVIEW,
+    CLOSE_REVIEW
 } from '../actions/review';
 
 
@@ -17,6 +19,7 @@ const initialState = {
     correctCount: null,
     rating: null,
     loadingList: true,
+    reviewMode: false,
     error: {}
 }
 
@@ -38,6 +41,20 @@ export default function(state = initialState, action) {
                 correctCount: payload[0].correctCount,
                 rating: payload[0].rating,
                 loadingList: false
+            }
+
+        case START_REVIEW:
+
+            return {
+                ...state,
+                reviewMode: true
+            }
+
+        case CLOSE_REVIEW:
+
+            return {
+                ...state,
+                reviewMode: false
             }
 
         case GET_EMPTY_REVIEW: 

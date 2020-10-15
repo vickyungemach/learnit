@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import { openEdit } from '../../actions/words';
-import { clearEdit, saveList } from '../../actions/words';
+import { openEdit } from '../../../actions/words';
+import { clearEdit, saveList } from '../../../actions/words';
 
 
 const VocabularyHeading = ({ count, openEdit, saveList }) => {
