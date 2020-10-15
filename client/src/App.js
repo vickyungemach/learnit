@@ -13,22 +13,22 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/auth/PrivateRoute';
-import { loadUser } from './actions/auth'; 
+import { loadUser, loginCheck } from './actions/auth'; 
 
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
-}
+} 
 
 const App = () => {
   useEffect(() => {
      store.dispatch(loadUser());
+     store.dispatch(loginCheck());
   }, [])
   
   return (
     <Provider store={store}>
       <Router>
-        <div>
           <Header />
           <Switch>
             <PrivateRoute exact path='/' component={Home} />
@@ -38,7 +38,6 @@ const App = () => {
             <PrivateRoute exact path='/vocabulary/:title' component={WordList} />
             <PrivateRoute exact path='/add-words/:title' component={EditForm} />
           </Switch>
-        </div>
 
       </Router>
     </Provider>

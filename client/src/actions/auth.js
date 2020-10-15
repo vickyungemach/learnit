@@ -7,6 +7,7 @@ export const GET_USER = 'GET_USER';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const LOGOUT = 'LOGOUT';
+export const CHECK_LOGIN = 'CHECK_LOGIN';
 
 
 // Load user
@@ -28,6 +29,18 @@ export const loadUser = () => async dispatch => {
     } catch (err) {
         console.log(err.message);
     }
+}
+
+
+// Login Check to prevent /login flash
+export const loginCheck = () => async dispatch => {
+
+    setTimeout(function(){
+        dispatch({
+            type: CHECK_LOGIN
+        })
+        console.log('loggin checked');
+    }, 100);
 
 }
 

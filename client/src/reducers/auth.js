@@ -3,13 +3,15 @@ import {
     GET_USER,
     REGISTER_SUCCESS,
     REGISTER_FAIL,
-    LOGOUT
+    LOGOUT,
+    CHECK_LOGIN
 } from '../actions/auth';
 
 const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: false,
     loading: true,
+    loginCheck: false,
     user: null
 }
 
@@ -24,6 +26,12 @@ export default function(state = initialState, action) {
                 isAuthenticated: true,
                 loading: false,
                 user: payload
+            }
+
+        case CHECK_LOGIN:
+            return {
+                ...state,
+                loginCheck: true
             }
 
         case LOGIN_SUCCESS: 
