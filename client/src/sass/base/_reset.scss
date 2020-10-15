@@ -32,12 +32,15 @@ a {
 
 .scroll-container {
   height: 100%;
+  width: 100vw;
+  overflow-x: hidden;
   overflow: scroll;
 }
 
 .hide-mobile {
   display: none;
 }
+
 
 
 
@@ -57,6 +60,7 @@ a {
 
   .scroll-container {
     height: 100%;
+    width: auto;
     overflow: scroll;
     padding: 0 25vw;
   }

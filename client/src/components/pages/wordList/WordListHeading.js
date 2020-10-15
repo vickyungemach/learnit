@@ -5,15 +5,15 @@ import { openEdit, saveWord } from '../../../actions/words';
 
 const WordListHeading = ({ languages, title, id, count, openEdit, saveWord }) => {
 
-     // useState [Add Word]
-     const [word, setWord] = useState({
+    // useState [Add Word]
+    const [word, setWord] = useState({
         spanish: '',
         english: ''
     })
 
     const { spanish, english } = word;
 
-    
+
     // Handle onChange word edits 
     const onWordChange = (e) => {
 
@@ -52,30 +52,22 @@ const WordListHeading = ({ languages, title, id, count, openEdit, saveWord }) =>
                 english: ''
             })
         }, 300);
-
-
     }
 
 
 
+
     const toggleOptions = (e) => {
-        let toggleElement;
 
-        // Bubble up to parent class
-        if (e.target.innerText === 'EDIT' || e.target.innerTEXT === 'DELETE') {
-            toggleElement = e.target.parentElement.parentElement;
+        e.target.parentElement.nextSibling.classList.toggle('hide-mobile');
+        e.target.parentElement.nextSibling.nextSibling.classList.toggle('show-edits');
+        console.log(e.target.parentElement.nextSibling);
 
-        } else if (e.target.classList.contains('word-list-heading_options') ||
-            e.target.classList.contains('word-list-heading_count') ||
-            e.target.tagName === 'H1') {
+    }
 
-            toggleElement = e.target.parentElement;
 
-        } else {
-            toggleElement = e.target;
-        }
-
-        toggleElement.classList.toggle('show-options');
+    const onDelete = () => {
+        
     }
 
 
@@ -101,7 +93,7 @@ const WordListHeading = ({ languages, title, id, count, openEdit, saveWord }) =>
 
             {/* Add New Word */}
             <div className="stitched-box edit-form" id="desktop-add-form" >
-            <div className="form-container">
+                <div className="form-container">
                     <h1 className="form-heading">Add new word:</h1>
                     <form onSubmit={onWordSubmit}>
                         <input autoCapitalize="none" id="spanish" type="text" placeholder={languages[1]} name="spanish" value={spanish} onChange={onWordChange} />
@@ -118,11 +110,23 @@ const WordListHeading = ({ languages, title, id, count, openEdit, saveWord }) =>
                 <div className="heading_grey-box--desktop wordlist-header--desktop">
 
                     <div className="heading_grey-box_group wordlist-header_group">
-                        <h1 className="heading_grey-box_title small" onClick={toggleOptions}>{title}</h1>
+                        <h1 className="heading_grey-box_title small" onClick={toggleOptions}>
+                            {title}
+                            <div className="ml-3 word-list_item--edits hide-mobile">
+                                <i className="far fa-edit" onClick={onEdit}></i>
+                                <i className="far fa-trash-alt" onClick={onDelete}></i>
+                            </div>
+
+                        </h1>
                         <button className="transparent-btn hide-mobile" onClick={toggleForm}><p>+</p> Add new word</button>
                     </div>
 
                     <p className="heading_grey-box_subtitle">{count} Words</p>
+
+                    <div className="ml-2 word-list_item--edits hide-desktop">
+                        <i className="far fa-edit" onClick={onEdit}></i>
+                        <i className="far fa-trash-alt" onClick={onDelete}></i>
+                    </div>
                     <button className="transparent-btn hide-desktop wordlist-header_add-button" onClick={toggleForm}><p>+</p> Add new word</button>
 
                     {/* Add edit options */}
