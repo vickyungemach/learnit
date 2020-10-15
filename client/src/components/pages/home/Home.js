@@ -17,9 +17,9 @@ const Home = ({ getWords, getReview, getLists }) => {
 
    
     return (
-        <div>
+        <div className="container home-container">
             <Landing />
-            <Review />
+            <Review />  
         </div>
     )
 }

@@ -25,13 +25,20 @@ a {
   height: 88vh;
   position: relative;
   width: 100vw;
-  overflow: scroll;
+  overflow: hidden;
   transition: all 0.2s;
+}
+
+
+.scroll-container {
+  height: 100%;
+  overflow: scroll;
 }
 
 .hide-mobile {
   display: none;
 }
+
 
 
 /* ===================================
@@ -42,8 +49,16 @@ a {
 
   .container {
     background-color: rgba($color: $grey-header, $alpha: .42);
-    padding: 0 25vw;
+    padding: 0;
+    height: 88vh;
+    overflow: hidden;
+  }
+
+
+  .scroll-container {
+    height: 100%;
     overflow: scroll;
+    padding: 0 25vw;
   }
 
   .hide-mobile {

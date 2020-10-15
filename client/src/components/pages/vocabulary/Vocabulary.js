@@ -21,8 +21,8 @@ const Vocabulary = ({ lists, getWords, getLists, setURL }) => {
     }
 
     return (
-        <div id="slide-vocabulary"  className="container">
-            
+        <div id="slide-vocabulary" className="container">
+            <div className="scroll-container">
                 <VocabularyHeading />
                 <div className="vocabulary-list">
                     {
@@ -36,6 +36,9 @@ const Vocabulary = ({ lists, getWords, getLists, setURL }) => {
                     <AddWords />
                 </div> */}
             </div>
+        </div>
+
+
 
     )
 }

@@ -12,7 +12,7 @@ const WordList = ({ match, words: { words, lists }, setURL, getWords, getLists, 
         getLists();
         document.getElementById('slide-wordlist').classList.add('slide-in-page');
     }, [getLists, getWords, setURL])
-    
+
 
 
     // Slide up form to add words
@@ -33,32 +33,40 @@ const WordList = ({ match, words: { words, lists }, setURL, getWords, getLists, 
         }
     }
 
-    
+
     return (
         <Fragment>
+
             <div id="slide-wordlist" className="container pre-slide-in-page">
-                <WordListHeading 
-                    title={match.params.title} 
-                    count={words.filter(word => word.list.title === match.params.title).length} 
-                    id = {lists.filter(list => list.title === match.params.title)[0]}
-                 />
+                <div className="scroll-container">
+                    <WordListHeading
+                        title={match.params.title}
+                        count={words.filter(word => word.list.title === match.params.title).length}
+                        id={lists.filter(list => list.title === match.params.title)[0]}
+                    />
 
-                <div className="word-list">
-                    {
-                        words
-                        .filter(word => word.list.title === match.params.title)
-                        .map(word => (
-                             <WordListItem key={word._id} word={word} />
-                        ))
-                    }
-                   
+                    <div className="word-list">
+                        {
+                            words
+                                .filter(word => word.list.title === match.params.title)
+                                .map(word => (
+                                    <WordListItem key={word._id} word={word} />
+                                ))
+                        }
+
+                    </div>
                 </div>
 
 
-            </div>               
-             <div className="container slide-container" id="full-screen-form">
-                    <EditForm listTitle={match.params.title} listId = {lists.filter(list => list.title === match.params.title)[0]} />
+
+                <div className="container slide-container" id="full-screen-form">
+                    <EditForm listTitle={match.params.title} listId={lists.filter(list => list.title === match.params.title)[0]} />
                 </div>
+
+            </div>
+
+
+
 
         </Fragment>
     )

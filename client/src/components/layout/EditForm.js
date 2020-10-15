@@ -168,6 +168,7 @@ const EditForm = ({ languages, listTitle, listId, saveWord, englishState, spanis
     )
 
     return (
+        <div className="scroll-container">
         <div className="stitched-box edit-form full-screen">
             <div className="form-container">
 
@@ -177,6 +178,7 @@ const EditForm = ({ languages, listTitle, listId, saveWord, englishState, spanis
 
             </div>
             <i className="fas fa-times edit-form--close full-screen--close" onClick={closeForm}></i>
+        </div>
         </div>
     )
 }

@@ -1,19 +1,19 @@
 .slide-container {
-    background-color: #fff;
-    display: none;
-    overflow: hidden;
-    transform: translateY(200%);
-    transition: all .3s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
     height: 88vh;
+    background-color: #fff;
+    overflow: hidden;
+    z-index: 99;
+    transform: translateY(100%);
+    transition: all .5s;
 }
 
 .slide-in {
-    display: block;
-    position: absolute;
-    top: 12vh;
-    transform: translateY(0);
+    transform: translateY(0%);
 }
-
 
 
 // Slide container out
