@@ -40,7 +40,7 @@ export const loginCheck = () => async dispatch => {
             type: CHECK_LOGIN
         })
         console.log('loggin checked');
-    }, 100);
+    }, 1000);
 
 }
 
