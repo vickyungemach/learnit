@@ -8,8 +8,8 @@ const WordListItem = ({ word: { english, spanish, _id }, openEdit, deleteWord })
 
         let toggleElement;
 
-        if (e.target.tagName === 'P' || e.target.tagName === 'H2') {
-            toggleElement = e.target.parentElement;
+        if (e.target.tagName === 'P' || e.target.tagName === 'H3') {
+            toggleElement = e.target.parentElement.parentElement;
         } else {
             toggleElement = e.target;
         }
@@ -22,8 +22,8 @@ const WordListItem = ({ word: { english, spanish, _id }, openEdit, deleteWord })
             }
         })
 
-        if (e.target.tagName === 'P' || e.target.tagName === 'H2') {
-            e.target.parentElement.classList.toggle('show-edits');
+        if (e.target.tagName === 'P' || e.target.tagName === 'H3') {
+            e.target.parentElement.parentElement.classList.toggle('show-edits');
         } else {
             e.target.classList.toggle('show-edits');
         }

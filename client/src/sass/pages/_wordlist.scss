@@ -12,9 +12,9 @@
 .word-list { 
     background-color: rgba($color: $grey-header, $alpha: .42);
     height: auto;
+    width: 100vw;
     padding: 1rem 0;
     overflow: scroll;
-    width: 100vw;
     overflow-x: hidden;
     border-top: 3px solid rgba($color: $grey-header, $alpha: .42);
 
@@ -97,6 +97,7 @@
 
     .word-list {
         height: auto;
+        width: auto;
         background-color: transparent;
         border: none;
         display: flex;
@@ -109,9 +110,21 @@
             &--edits {
                 display: none;
                 transform: translateX(0%);
+                .fa-edit, .fa-trash-alt {
+                    color: $grey-light;
+                    transition: all .2s;
+                }
 
                 .fa-edit {
                    margin-right: 1.5rem;
+
+                   &:hover {
+                       color: $grey-dark;
+                   }
+                }
+
+                .fa-trash-alt:hover {
+                    color: #F86A79;
                 }
             }
         }

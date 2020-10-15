@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { url } from '../config';
+import setAuthToken from '../utils/setAuthToken';
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const GET_USER = 'GET_USER';
@@ -10,6 +11,10 @@ export const LOGOUT = 'LOGOUT';
 
 // Load user
 export const loadUser = () => async dispatch => {
+
+    if(localStorage.token) {
+        setAuthToken(localStorage.token);
+    }
 
     try {
 

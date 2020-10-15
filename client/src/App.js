@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux';
 import { store } from './store';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import './main.scss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/pages/home/Home';
@@ -13,6 +13,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/auth/PrivateRoute';
+import { loadUser } from './actions/auth'; 
 
 
 if (localStorage.token) {
@@ -20,6 +21,10 @@ if (localStorage.token) {
 }
 
 const App = () => {
+  useEffect(() => {
+     store.dispatch(loadUser());
+  }, [])
+  
   return (
     <Provider store={store}>
       <Router>

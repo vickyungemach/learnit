@@ -155,7 +155,7 @@ const Review = ({ review: { list, currentWord, translation, id, rating, loadingL
 
 
     return (
-        <div className="container slide-container" id="review">
+        <div className="window slide-container" id="review">
             <div className='review' id="review" onKeyDown={shrinkEnglish}>
                 <h1 className="english-word" id="english">{currentWord}</h1>
                 <input
