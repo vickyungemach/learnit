@@ -22,7 +22,6 @@ const WordListHeading = ({ languages, title, id, count, openEdit, saveWord, dele
             [e.target.name]: e.target.value
         })
 
-        console.log(document.activeElement);
     }
 
 
@@ -98,8 +97,8 @@ const WordListHeading = ({ languages, title, id, count, openEdit, saveWord, dele
                 <div className="form-container">
                     <h1 className="form-heading">Add new word:</h1>
                     <form onSubmit={onWordSubmit}>
-                        <input autocomplete="off" autoCapitalize="none" id="spanish" type="text" placeholder={languages[1]} name="spanish" value={spanish} onChange={onWordChange} />
-                        <input autocomplete="off" autoCapitalize="none" type="text" placeholder={languages[0]} name="english" value={english} onChange={onWordChange} />
+                        <input autoComplete="off" autoCapitalize="none" id="spanish" type="text" placeholder={languages[1]} name="spanish" value={spanish} onChange={onWordChange} />
+                        <input autoComplete="off" autoCapitalize="none" type="text" placeholder={languages[0]} name="english" value={english} onChange={onWordChange} />
                         <button className="mt-4" type="submit">Save word</button>
                     </form>
                 </div>

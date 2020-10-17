@@ -51,7 +51,7 @@ const Register = ({ register, loadUser, history, isAuthenticated }) => {
             <form onSubmit={onSubmit}>
               <input type="text" name="name" id="name" placeholder="Username" value={name} onChange={onChange} />
               <input className="mt-4" type="password" name="password" id="password" placeholder="Password" value={password} onChange={onChange} />
-              <input type="password" name="password" id="password" placeholder="Confirm Password" value={password2} onChange={onChange} />
+              <input type="password" name="password2" id="password2" placeholder="Confirm Password" value={password2} onChange={onChange} />
               <button type="submit">Register</button>
             </form>
           </div>

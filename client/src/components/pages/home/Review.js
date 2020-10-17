@@ -167,7 +167,7 @@ const Review = ({ review: { list, currentWord, translation, id, rating, loadingL
                     onChange={onChange}
                     onClick={shrinkEnglish}
                     onKeyPress={keyboardAction}
-                    autocomplete="off"
+                    autoComplete="off"
                 />
 
             </div>

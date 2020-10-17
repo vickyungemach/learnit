@@ -16,6 +16,7 @@ import PrivateRoute from './components/auth/PrivateRoute';
 import { loadUser, loginCheck } from './actions/auth'; 
 
 
+
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 } 

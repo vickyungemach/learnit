@@ -37,6 +37,11 @@ const Login = ({ login, loadUser, history, isAuthenticated, user }) => {
         login(name, password);
     }
 
+    const guestSignin = () => {
+        login('guest', '1234');
+    }
+
+
 
     return (
         <div className="container">
@@ -49,6 +54,7 @@ const Login = ({ login, loadUser, history, isAuthenticated, user }) => {
                         <input type="password" name="password" id="password" placeholder="Password" value={password} onChange={onChange} />
                         <button type="submit">Sign in</button>
                     </form>
+                    <p onClick={guestSignin}>Sign in as guest</p>
                 </div>
             </div>
         </div>
