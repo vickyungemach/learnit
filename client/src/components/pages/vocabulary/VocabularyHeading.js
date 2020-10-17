@@ -53,7 +53,7 @@ const VocabularyHeading = ({ count, openEdit, saveList }) => {
                 <div className="form-container">
                     <h1 className="form-heading">Add new list:</h1>
                     <form onSubmit={onListSubmit}>
-                        <input autoCapitalize="none" type="text" placeholder="List Name" value={list} onChange={onListChange} />
+                        <input autocomplete="off" autoCapitalize="none" type="text" placeholder="List Name" value={list} onChange={onListChange} />
                         <button type="submit">Save list</button>
                     </form>
                 </div>

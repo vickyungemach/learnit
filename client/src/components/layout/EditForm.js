@@ -146,8 +146,8 @@ const EditForm = ({ languages, listTitle, listId, saveWord, englishState, spanis
         <Fragment>
             <h1 className="form-heading">{editMode === 'editWord' ? 'Update word:' : listTitle}</h1>
             <form onSubmit={onWordSubmit}>
-                <input autoCapitalize="none" id="spanish" type="text" placeholder={languages[1]} name="spanish" value={spanish} onChange={onWordChange} />
-                <input autoCapitalize="none" type="text" placeholder={languages[0]} name="english" value={english} onChange={onWordChange} />
+                <input autocomplete="off" autoCapitalize="none" id="spanish" type="text" placeholder={languages[1]} name="spanish" value={spanish} onChange={onWordChange} />
+                <input autocomplete="off" autoCapitalize="none" type="text" placeholder={languages[0]} name="english" value={english} onChange={onWordChange} />
                 <button type="submit">{editMode === 'editWord' ? 'Update word' : 'Add word'}</button>
             </form>
         </Fragment>
@@ -161,7 +161,7 @@ const EditForm = ({ languages, listTitle, listId, saveWord, englishState, spanis
         <Fragment>
             <h1 className="form-heading">{editMode === 'editList' ? 'Update list name:' : 'Add a new list:'}</h1>
             <form onSubmit={onListSubmit} >
-                <input autoCapitalize="none" type="text" placeholder="List Name" value={formDataList} onChange={onListChange} />
+                <input autocomplete="off" autoCapitalize="none" type="text" placeholder="List Name" value={formDataList} onChange={onListChange} />
                 <button type="submit">{editMode === 'editList' ? 'Update list' : 'Add list'}</button>
             </form>
         </Fragment>

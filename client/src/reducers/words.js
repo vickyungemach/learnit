@@ -11,7 +11,8 @@ import {
     DELETE_WORD,
     OPEN_CREATE_WORD,
     OPEN_CREATE_LIST,
-    UPDATE_LIST
+    UPDATE_LIST,
+    DELETE_LIST
 } from '../actions/words';
 
 const initialState = {
@@ -51,7 +52,7 @@ export default function (state = initialState, action) {
             }
 
         case SAVE_WORD:
-        
+
             return {
                 ...state,
                 words: [...state.words, payload]
@@ -74,17 +75,17 @@ export default function (state = initialState, action) {
 
         case UPDATE_WORD:
 
-        return {
+            return {
                 ...state,
                 words: state.words.map(word => {
                     if (word._id === payload._id) {
                         return payload;
-                        
+
                     }
                     return word;
                 })
             }
-       
+
 
 
         case DELETE_WORD:
@@ -138,6 +139,13 @@ export default function (state = initialState, action) {
                     }
                     return list;
                 })
+            }
+
+        case DELETE_LIST:
+
+            return {
+                ...state,
+                lists: state.lists.filter(list => list._id !== payload.list._id)
             }
 
 

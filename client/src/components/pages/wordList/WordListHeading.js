@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import { openEdit, saveWord } from '../../../actions/words';
+import { openEdit, saveWord, deleteList } from '../../../actions/words';
 
 
-const WordListHeading = ({ languages, title, id, count, openEdit, saveWord }) => {
+const WordListHeading = ({ languages, title, id, count, openEdit, saveWord, deleteList }) => {
 
     // useState [Add Word]
     const [word, setWord] = useState({
@@ -58,17 +58,11 @@ const WordListHeading = ({ languages, title, id, count, openEdit, saveWord }) =>
 
 
     const toggleOptions = (e) => {
-
         e.target.parentElement.nextSibling.classList.toggle('hide-mobile');
         e.target.parentElement.nextSibling.nextSibling.classList.toggle('show-edits');
         console.log(e.target.parentElement.nextSibling);
-
     }
 
-
-    const onDelete = () => {
-        
-    }
 
 
     // Open and close inline add list form
@@ -85,6 +79,14 @@ const WordListHeading = ({ languages, title, id, count, openEdit, saveWord }) =>
         document.getElementById('full-screen-form').classList.add('slide-in');
     }
 
+    const onDelete = () => {
+        let response = window.confirm('Delete that list?');
+
+        if(response) {
+            deleteList(id._id);
+            console.log(id);
+        }
+    }
 
 
     return (
@@ -96,8 +98,8 @@ const WordListHeading = ({ languages, title, id, count, openEdit, saveWord }) =>
                 <div className="form-container">
                     <h1 className="form-heading">Add new word:</h1>
                     <form onSubmit={onWordSubmit}>
-                        <input autoCapitalize="none" id="spanish" type="text" placeholder={languages[1]} name="spanish" value={spanish} onChange={onWordChange} />
-                        <input autoCapitalize="none" type="text" placeholder={languages[0]} name="english" value={english} onChange={onWordChange} />
+                        <input autocomplete="off" autoCapitalize="none" id="spanish" type="text" placeholder={languages[1]} name="spanish" value={spanish} onChange={onWordChange} />
+                        <input autocomplete="off" autoCapitalize="none" type="text" placeholder={languages[0]} name="english" value={english} onChange={onWordChange} />
                         <button className="mt-4" type="submit">Save word</button>
                     </form>
                 </div>
@@ -147,7 +149,7 @@ const mapStateToProps = state => ({
     languages: state.auth.user.languages
 })
 
-export default connect(mapStateToProps, { openEdit, saveWord })(WordListHeading);
+export default connect(mapStateToProps, { openEdit, saveWord, deleteList })(WordListHeading);
 
 
 

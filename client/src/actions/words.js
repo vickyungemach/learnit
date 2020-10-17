@@ -14,6 +14,7 @@ export const UPDATE_WORD = 'UPDATE_WORD';
 export const DELETE_WORD = 'DELETE_WORD';
 export const OPEN_CREATE_WORD = 'OPEN_CREATE_WORD';
 export const UPDATE_LIST = 'UPDATE_LIST';
+export const DELETE_LIST = 'DELETE_LIST';
 
 
 // Config for POST & PUT requests
@@ -178,6 +179,23 @@ export const updateList = (id, formData) => async dispatch => {
         })
     } catch (err) {
         console.log(err.message)
+    }
+}
+
+
+// Delete list 
+export const deleteList = id => async dispatch => {
+    try {
+        const res = await axios.delete(`${url}/api/lists/${id}`);
+
+        dispatch({
+            type: DELETE_LIST,
+            payload: res.data
+        })
+
+    } catch (err) {
+        console.log(err.message);
+
     }
 }
 

@@ -43,7 +43,12 @@ const WordListItem = ({ word: { english, spanish, _id }, openEdit, deleteWord })
     }
 
     const onDelete = () => {
-        deleteWord(_id);
+        let response = window.confirm('Delete that word?');
+
+        if(response) {
+            deleteWord(_id);
+        }
+   
     }
 
 
