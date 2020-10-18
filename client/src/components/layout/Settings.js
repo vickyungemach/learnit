@@ -6,7 +6,7 @@ const Settings = ({ auth: {user, isAuthorized}, logout }) => {
     return (
         <div className="settings" id="settings">
             { isAuthorized ? <h4> {user.name} </h4> : null }
-            <button className="btn" onClick={logout}>Log Out</button>
+            <button className="transparent-btn" onClick={logout}>Log Out</button>
         </div>
     )
 }

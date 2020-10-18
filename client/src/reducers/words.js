@@ -12,7 +12,8 @@ import {
     OPEN_CREATE_WORD,
     OPEN_CREATE_LIST,
     UPDATE_LIST,
-    DELETE_LIST
+    DELETE_LIST,
+    GET_SEARCH_TERM
 } from '../actions/words';
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
     editList: {
         listTitle: ''
     },
+    searchTerm: '',
     loading: true,
     error: {}
 }
@@ -93,6 +95,14 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 words: state.words.filter(word => word._id !== payload.word._id)
+            }
+
+        
+        case GET_SEARCH_TERM:
+
+            return {
+                ...state,
+                searchTerm: payload
             }
 
 

@@ -55,11 +55,13 @@ const Landing = ({ words: { count, loading }, startReview, openRanking, review: 
                             <img className="chevron" src={chevronright} alt="chevron right" />
                         </div></Link>   
                 
+                        <Link to="/conjugation">
                         <div className="desktop-landing_menu--card">
                             <img className="icon" id="speechbubble" src={speechbubble} alt="speech bubble icon" />
                             <h5>Conjugation</h5>
                             <img className="chevron" src={chevronright} alt="chevron right" />
                         </div>
+                        </Link>
                 
                     </div>
                 ) : null : '' }

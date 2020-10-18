@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import VocabularyHeading from './VocabularyHeading';
 import VocabularyItem from './VocublaryItem';
+import WordListItem from '../wordList/WordListItem';
 import { connect } from 'react-redux';
 import { getWords, getLists, setURL } from '../../../actions/words';
+import EditForm from '../../layout/EditForm';
 
 
-const Vocabulary = ({ lists, getWords, getLists, setURL }) => {
+const Vocabulary = ({ lists, getWords, getLists, setURL, searchTerm, words, match }) => {
 
     useEffect(() => {
         getWords();
@@ -24,18 +26,40 @@ const Vocabulary = ({ lists, getWords, getLists, setURL }) => {
         <div id="slide-vocabulary" className="container">
             <div className="scroll-container">
                 <VocabularyHeading />
-                <div className="vocabulary-list">
-                    {
-                        lists.map(list => (
-                            <VocabularyItem key={list._id} title={list.title} />
-                        ))
-                    }
 
-                </div>
-                {/* <div className="slide-form" id="slide-form">
-                    <AddWords />
-                </div> */}
+                {/* Vocabulary List */}
+
+                {
+                    searchTerm === '' ? 
+                        ( 
+                            <div id="vocabulary-list" className="vocabulary-list">
+                                {
+                                    lists.map(list => (
+                                        <VocabularyItem key={list._id} title={list.title} />
+                                    ))
+                                }
+                            </div>
+                        ) : 
+                        (
+                            <div className="word-list">
+                            {
+                                words
+                                    .filter(word => word.english.includes(searchTerm) || word.spanish.includes(searchTerm))
+                                    .map(word => (
+                                        <WordListItem key={word._id} word={word} />
+                                    ))
+                            }
+                            </div>
+                        ) 
+                }       
+
+
             </div>
+
+
+            <div className="container slide-container" id="full-screen-form">
+                    <EditForm listTitle={match.params.title} listId={lists.filter(list => list.title === match.params.title)[0]} />
+                </div>
         </div>
 
 
@@ -44,7 +68,9 @@ const Vocabulary = ({ lists, getWords, getLists, setURL }) => {
 }
 
 const mapStateToProps = state => ({
-    lists: state.words.lists
+    lists: state.words.lists,
+    searchTerm: state.words.searchTerm,
+    words: state.words.words
 })
 
 export default connect(mapStateToProps, { getLists, getWords, setURL })(Vocabulary);

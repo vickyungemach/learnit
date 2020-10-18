@@ -109,6 +109,10 @@ export const logout = () => async dispatch => {
     dispatch({
         type: LOGOUT
     })
+
+    setTimeout(function() {
+        window.location.reload();
+    }, 1000);
 }
 
 

@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { openEdit } from '../../../actions/words';
-import { clearEdit, saveList } from '../../../actions/words';
+import { clearEdit, saveList, getSearchTerm } from '../../../actions/words';
 
 
-const VocabularyHeading = ({ count, openEdit, saveList }) => {
+const VocabularyHeading = ({ count, openEdit, saveList, searchTerm, getSearchTerm }) => {
 
     // Open and close inline add list form
     const toggleForm = () => {
@@ -13,14 +13,18 @@ const VocabularyHeading = ({ count, openEdit, saveList }) => {
         setList('');
     }
 
+    /* ===================================
+       LIST EDIT
+    =================================== */
+
     // useState [Add List]
     const [list, setList] = useState('');
-
 
     // Handle onChange list edits
     const onListChange = (e) => {
         setList(e.target.value);
     }
+
 
     // Handle onSubmit list edits
     const onListSubmit = (e) => {
@@ -43,6 +47,23 @@ const VocabularyHeading = ({ count, openEdit, saveList }) => {
         }, 300);
 
     }
+
+
+
+    /* ===================================
+       SEARCH VOCABULARY
+    =================================== */
+
+    // useState [Search vocabulary]
+    const [searchForm, setSearchForm] = useState(searchTerm);
+
+    // Handle onChange search vocabulary
+    const onSearchChange = (e) => {
+        getSearchTerm(e.target.value);
+        setSearchForm(searchTerm);
+    }
+
+
 
     return (
 
@@ -69,7 +90,8 @@ const VocabularyHeading = ({ count, openEdit, saveList }) => {
                         <button className="transparent-btn" onClick={toggleForm}><p>+</p> Add new list</button>
                     </div>
                     <form action="">
-                        <i className="fas fa-search input-icon"></i><input className="heading_grey-box_input rounded-input" type="text" placeholder="Search Vocabulary" />
+                        <i className="fas fa-search input-icon"></i>
+                        <input className="heading_grey-box_input rounded-input" type="text" placeholder="Search Vocabulary" value={searchTerm} onChange={onSearchChange} />
                     </form>
                 </div>
             </div>
@@ -78,7 +100,8 @@ const VocabularyHeading = ({ count, openEdit, saveList }) => {
 }
 
 const mapStateToProps = state => ({
-    count: state.words.count
+    count: state.words.count,
+    searchTerm: state.words.searchTerm
 })
 
-export default connect(mapStateToProps, { openEdit, saveList, clearEdit })(VocabularyHeading);
+export default connect(mapStateToProps, { openEdit, saveList, clearEdit, getSearchTerm })(VocabularyHeading);

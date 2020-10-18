@@ -15,6 +15,7 @@ export const DELETE_WORD = 'DELETE_WORD';
 export const OPEN_CREATE_WORD = 'OPEN_CREATE_WORD';
 export const UPDATE_LIST = 'UPDATE_LIST';
 export const DELETE_LIST = 'DELETE_LIST';
+export const GET_SEARCH_TERM = 'GET_SEARCH_TERM';
 
 
 // Config for POST & PUT requests
@@ -231,4 +232,18 @@ export const clearEdit = () => async dispatch => {
     }
 }
 
+
+// Update searchTerm in state
+export const getSearchTerm = (searchedWord) => async dispatch => {
+    try {
+        
+        dispatch({
+            type: GET_SEARCH_TERM,
+            payload: searchedWord
+        })
+
+    } catch (err) {
+        console.log(err.message);
+    }
+}
 

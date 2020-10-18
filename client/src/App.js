@@ -14,6 +14,7 @@ import Register from './components/auth/Register';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/auth/PrivateRoute';
 import { loadUser, loginCheck } from './actions/auth'; 
+import Conjugation from './components/pages/conjugation/Conjugation';
 
 
 
@@ -39,6 +40,7 @@ const App = () => {
             <Route exact path='/login' component={Login} />
             <PrivateRoute exact path='/vocabulary/:title' component={WordList} />
             <PrivateRoute exact path='/add-words/:title' component={EditForm} />
+            <PrivateRoute exact path='/conjugation' component={Conjugation} />
           </Switch>
 
           </div>

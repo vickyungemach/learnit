@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { closeReview } from '../../actions/review';
 import pineapple from '../../img/graphics/pineapple.png';
-import { login, logout } from '../../actions/auth';
+import { showSettings, logout } from '../../actions/auth';
 
-const Header = ({ url, closeReview, logout, auth: {isAuthenticated, loading, user} }) => {
+const Header = ({ url, showSettings, closeReview, logout, auth: {isAuthenticated, loading, user} }) => {
     
    
     const [currentURL, setCurrentURL] = useState('register');
@@ -25,6 +25,7 @@ const Header = ({ url, closeReview, logout, auth: {isAuthenticated, loading, use
         if(!e.target.classList.contains('nav-link--user') && isAuthenticated) {
             document.getElementById('logout').classList.remove('show-logout');
         }
+
         
     });
 
@@ -55,11 +56,11 @@ const Header = ({ url, closeReview, logout, auth: {isAuthenticated, loading, use
             {/* Desktop Menu */}
             <div className="nav">
                 <Link to="/vocabulary" className="nav-link">vocabulary</Link>
-                <Link to="" className="nav-link">conjugation</Link>
+                <Link to="/conjugation" className="nav-link">conjugation</Link>
 
             <img src={pineapple} alt="" />
             <div className="logout-box" onClick={showLogOut}>
-                <Link to="" className="nav-link nav-link--user">{ !loading ? user.name : null }</Link>
+                <Link to="" className="nav-link nav-link--user" onClick={ (event) => event.preventDefault() }>{ !loading ? user.name : null }</Link>
                 <div className="logout" id="logout">
                     <p class="logout-button" onClick={logoutUser} >Logout</p> 
                 </div>
@@ -67,7 +68,7 @@ const Header = ({ url, closeReview, logout, auth: {isAuthenticated, loading, use
             </div>
 
             {/* Hamburger Menu */}
-            <div className="hamburger">
+            <div className="hamburger" onClick={showSettings}>
                 <div className="hamburger-line"></div>
                 <div className="hamburger-line"></div>
                 <div className="hamburger-line"></div>
@@ -128,4 +129,4 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, { logout, closeReview })(Header);
+export default connect(mapStateToProps, { logout, closeReview, showSettings })(Header);

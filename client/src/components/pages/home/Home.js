@@ -4,6 +4,7 @@ import Review from './Review';
 import { getWords, getLists } from '../../../actions/words';
 import { getReview } from '../../../actions/review';
 import { connect } from 'react-redux';
+import Settings from '../../layout/Settings';
 
 
 
@@ -20,6 +21,7 @@ const Home = ({ getWords, getReview, getLists }) => {
         <div className="container">
             <Landing />
             <Review />  
+            <Settings />
         </div>
     )
 }
