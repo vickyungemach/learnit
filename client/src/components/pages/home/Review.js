@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import useSound from 'use-sound';
 import { connect } from 'react-redux';
-import { nextCard, removeLastWord, addTime, wordUpdate } from '../../../actions/review';
+import { nextCard, removeLastWord, addTime, wordUpdate, closeReview } from '../../../actions/review';
 import bonusPoints from '../../../sounds/bonus-points.mp3';
 
 
-const Review = ({ review: { list, currentWord, translation, id, rating, loadingList, reviewMode }, nextCard, removeLastWord, addTime, wordUpdate }) => {
+const Review = ({ review: { list, currentWord, translation, id, rating, loadingList, reviewMode }, nextCard, removeLastWord, addTime, wordUpdate, closeReview }) => {
     const [play] = useSound(bonusPoints);
     const [word, setWord] = useState('');
 
@@ -75,6 +75,8 @@ const Review = ({ review: { list, currentWord, translation, id, rating, loadingL
                 // Last word in review list
             } else {
                 setTimeout(() => {
+                    console.log('last word');
+                    closeReview();
                     removeLastWord(currentWord);
                     review.classList.remove('slide-in');
                     resetReview();
@@ -181,4 +183,4 @@ const mapStateToProps = state => ({
     review: state.review
 })
 
-export default connect(mapStateToProps, { nextCard, removeLastWord, addTime, wordUpdate })(Review);
+export default connect(mapStateToProps, { nextCard, removeLastWord, addTime, wordUpdate, closeReview })(Review);

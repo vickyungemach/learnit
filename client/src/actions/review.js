@@ -69,6 +69,8 @@ export const closeReview = () => async dispatch => {
         dispatch({
             type: CLOSE_REVIEW
         })
+
+        console.log('kdjfkd');
     } catch (err) {
         console.error(err.message);
     }

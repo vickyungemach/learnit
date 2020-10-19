@@ -54,7 +54,9 @@ const Login = ({ login, loadUser, history, isAuthenticated, user }) => {
                         <input type="password" name="password" id="password" placeholder="Password" value={password} onChange={onChange} />
                         <button type="submit">Sign in</button>
                     </form>
-                    <p onClick={guestSignin}>Sign in as guest</p>
+                    <div className="guest-login-box" onClick={guestSignin}>
+                    <p className="guest-login"> Sign in as a guest,</p> <p className="guest-login"> No account needed!</p>
+                    </div>
                 </div>
             </div>
         </div>
