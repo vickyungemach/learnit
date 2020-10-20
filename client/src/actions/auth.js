@@ -112,7 +112,7 @@ export const logout = () => async dispatch => {
 
     setTimeout(function() {
         window.location.reload();
-    }, 1000);
+    }, 500);
 }
 
 
