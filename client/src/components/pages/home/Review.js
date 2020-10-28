@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { nextCard, removeLastWord, addTime, wordUpdate, closeReview } from '../../../actions/review';
 import bonusPoints from '../../../sounds/bonus-points.mp3';
 
-
 const Review = ({ review: { list, currentWord, translation, id, rating, loadingList, reviewMode }, nextCard, removeLastWord, addTime, wordUpdate, closeReview }) => {
     const [play] = useSound(bonusPoints);
     const [word, setWord] = useState('');
@@ -173,6 +172,7 @@ const Review = ({ review: { list, currentWord, translation, id, rating, loadingL
                 />
 
             </div>
+            <i className="fas fa-times edit-form--close full-screen--close" onClick={closeReview}></i>
         </div>
 
     )

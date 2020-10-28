@@ -62,7 +62,7 @@ const Header = ({ url, showSettings, closeReview, logout, auth: {isAuthenticated
             <div className="logout-box" onClick={showLogOut}>
                 <Link to="" className="nav-link nav-link--user" onClick={ (event) => event.preventDefault() }>{ !loading ? user.name : null }</Link>
                 <div className="logout" id="logout">
-                    <p class="logout-button" onClick={logoutUser} >Logout</p> 
+                    <p className="logout-button" onClick={logoutUser} >Logout</p> 
                 </div>
                 </div>
             </div>

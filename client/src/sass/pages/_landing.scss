@@ -22,6 +22,10 @@
         // margin: 0 auto;
         margin-left: auto;
         transform: translateX(11rem);
+
+        &:hover {
+            cursor: pointer;
+       }
         
         &--title {
             position: absolute;
