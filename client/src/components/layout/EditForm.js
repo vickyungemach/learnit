@@ -1,8 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { saveWord, updateWord, clearEdit, saveList, updateList } from '../../actions/words';
-
-
+ 
 const EditForm = ({ languages, listTitle, listId, saveWord, englishState, spanishState, wordIdState, listTitleState, listIdState, editMode, updateWord, clearEdit, saveList, updateList }) => {
 
     function closeForm() {

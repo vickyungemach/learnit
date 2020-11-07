@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require('./config/db');
 const path = require('path');
 const cors = require('cors');
+const CryptoJS = require('crypto-js');
 
 const app = express();
 const PORT =  5000;
@@ -28,3 +29,14 @@ app.get('*', (req, res) => {
 
 
 app.listen(PORT, console.log('Server running on ' + PORT));
+
+
+
+// Encrypt
+const ciphertext = CryptoJS.AES.encrypt('encrypt this please', 'whitecat').toString();
+
+// Decrypt
+const bytes  = CryptoJS.AES.decrypt(ciphertext, 'whitecat');
+const originalText = bytes.toString(CryptoJS.enc.Utf8);
+ 
+console.log(originalText); // 'my message'
