@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { saveWord, updateWord, clearEdit, saveList, updateList } from '../../actions/words';
  
-const EditForm = ({ languages, listTitle, listId, saveWord, englishState, spanishState, wordIdState, listTitleState, listIdState, editMode, updateWord, clearEdit, saveList, updateList }) => {
+const EditForm = ({ history, languages, listTitle, listId, saveWord, englishState, spanishState, wordIdState, listTitleState, listIdState, editMode, updateWord, clearEdit, saveList, updateList }) => {
 
     function closeForm() {
         // Slide Form container down
@@ -131,11 +131,13 @@ const EditForm = ({ languages, listTitle, listId, saveWord, englishState, spanis
         // Edit existing list
         if (editMode === 'editList') {
             updateList(listIdState, { title: formDataList.trim() });
+            const title = formDataList.trim();
 
             // Slide form down after editing list
             setTimeout(() => {
                 document.getElementById('full-screen-form').classList.remove('slide-in');
                 clearEdit();
+                window.history.push(`/vocabulary/${title}`)
             }, 300);
         }
     }

@@ -35,7 +35,6 @@ const VocabularyHeading = ({ count, openEdit, saveList, searchTerm, getSearchTer
             console.log('Fill out all fields');
         }
 
-
         saveList({
             title: list.trim()
         });

@@ -111,7 +111,7 @@ const Review = ({ review: { list, currentWord, translation, id, rating, loadingL
                 // Subtract from rating
                 if (rating !== 0) {
                     wordUpdate(id, {
-                        rating: rating - 1
+                        rating: 0
                     });
                 }
 
