@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
+import { Route } from 'react-router-dom';
 import WordListHeading from './WordListHeading';
 import WordListItem from './WordListItem';
 import { connect } from 'react-redux';
@@ -60,7 +61,8 @@ const WordList = ({ match, words: { words, lists }, setURL, getWords, getLists, 
 
 
                 <div className="container slide-container" id="full-screen-form">
-                    <EditForm listTitle={match.params.title} listId={lists.filter(list => list.title === match.params.title)[0]} />
+                    <Route render={({ history }) => <EditForm history={history} listTitle={match.params.title} listId={lists.filter(list => list.title === match.params.title)[0]} />} />
+                    {/* <EditForm listTitle={match.params.title} listId={lists.filter(list => list.title === match.params.title)[0]} /> */}
                 </div>
 
             </div>

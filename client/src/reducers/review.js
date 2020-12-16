@@ -95,7 +95,8 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 correctCount: payload.correctCount,
-                dueDate: payload.dueDate
+                dueDate: payload.dueDate,
+                rating: payload.rating
             }
 
         case REMOVE_WORD:

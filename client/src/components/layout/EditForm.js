@@ -137,7 +137,7 @@ const EditForm = ({ history, languages, listTitle, listId, saveWord, englishStat
             setTimeout(() => {
                 document.getElementById('full-screen-form').classList.remove('slide-in');
                 clearEdit();
-                window.history.push(`/vocabulary/${title}`)
+                history.push(`/vocabulary/${title}`);
             }, 300);
         }
     }
