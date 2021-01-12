@@ -38,5 +38,3 @@ const ciphertext = CryptoJS.AES.encrypt('encrypt this please', 'whitecat').toStr
 // Decrypt
 const bytes  = CryptoJS.AES.decrypt(ciphertext, 'whitecat');
 const originalText = bytes.toString(CryptoJS.enc.Utf8);
- 
-console.log(originalText); // 'my message'

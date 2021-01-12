@@ -18,6 +18,7 @@ import Conjugation from './components/pages/conjugation/Conjugation';
 
 
 
+
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 } 
@@ -41,6 +42,7 @@ const App = () => {
             <PrivateRoute exact path='/vocabulary/:title' component={WordList} />
             <PrivateRoute exact path='/add-words/:title' component={EditForm} />
             <PrivateRoute exact path='/conjugation' component={Conjugation} />
+
           </Switch>
 
           </div>

@@ -4,7 +4,7 @@ const List = require('../models/List');
 const { protect } = require('../middleware/auth');
 
 
-// GET api/list  [Get all lists from logged in user]
+// GET api/lists  [Get all lists from logged in user]
 router.get('/', protect, async (req, res) => {
     try {
         const lists = await List.find({ user: req.user.id });

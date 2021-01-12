@@ -11,8 +11,10 @@ export const START_REVIEW = 'START_REVIEW';
 export const CLOSE_REVIEW = 'CLOSE_REVIEW';
 
 
+/* ===================================
+   Get words that need to be reviewed
+=================================== */
 
-// Get words that need to be reviewed
 export const getReview = () => async dispatch => {
     try {
         const res = await axios.get(`${url}/api/words/review`);
@@ -33,7 +35,10 @@ export const getReview = () => async dispatch => {
 }
 
 
-// Start Review 
+/* ===================================
+   Start review
+=================================== */
+
 export const startReview = () => async dispatch => {
     try {
         const review = document.getElementById("review");
@@ -47,7 +52,10 @@ export const startReview = () => async dispatch => {
     }
 }
 
-// Open ranking 
+/* ===================================
+   Open ranking page
+=================================== */
+
 export const openRanking = () => async dispatch => {
     try {
         const ranking = document.getElementById("ranking");
@@ -58,7 +66,10 @@ export const openRanking = () => async dispatch => {
 }
 
 
-// Close Review & Ranking
+/* ===================================
+   Close review & ranking
+=================================== */
+
 export const closeReview = () => async dispatch => {
     try {
         const review = document.getElementById("review");
@@ -69,15 +80,16 @@ export const closeReview = () => async dispatch => {
         dispatch({
             type: CLOSE_REVIEW
         })
-
-        console.log('kdjfkd');
+        
     } catch (err) {
         console.error(err.message);
     }
 }
 
+/* ===================================
+   Get next word if correct answer
+=================================== */
 
-// Get next word if correct answer
 export const nextCard = (word, array, answer) => async dispatch => {
 
     try {
@@ -103,8 +115,10 @@ export const nextCard = (word, array, answer) => async dispatch => {
     }
 }
 
+/* ===================================
+   Remove word from list
+=================================== */
 
-// Remove word from list 
 export const removeLastWord = (word) => async dispatch => {
     try {
         dispatch({
@@ -117,7 +131,10 @@ export const removeLastWord = (word) => async dispatch => {
 }
 
 
-// Update correct word in DB
+/* ===================================
+   Update correct word in database
+=================================== */
+
 export const wordUpdate = (id, formData) => async dispatch => {
     
     try {

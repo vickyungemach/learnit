@@ -18,7 +18,10 @@ export const DELETE_LIST = 'DELETE_LIST';
 export const GET_SEARCH_TERM = 'GET_SEARCH_TERM';
 
 
-// Config for POST & PUT requests
+/* ===================================
+   Config for POST & PUT requests
+=================================== */
+
 const config = {
     headers: {
         'Content-Type': 'application/json'
@@ -26,7 +29,10 @@ const config = {
 }
 
 
-// Set the correct header Link url
+/* ===================================
+   Set the correct header Link url
+=================================== */
+
 export const setURL = () => async dispatch => {
     let url;
 
@@ -42,7 +48,11 @@ export const setURL = () => async dispatch => {
     })
 }
 
-// Get words
+
+/* ===================================
+   Get Words
+=================================== */
+
 export const getWords = () => async dispatch => {
     try {
         const res = await axios.get(`${url}/api/words`);
@@ -56,7 +66,11 @@ export const getWords = () => async dispatch => {
     }
 }
 
-// Get lists
+
+/* ===================================
+   Get lists
+=================================== */
+
 export const getLists = () => async dispatch => {
     try {
         const res = await axios.get(`${url}/api/lists`);
@@ -71,7 +85,10 @@ export const getLists = () => async dispatch => {
 }
 
 
-// Save new list
+/* ===================================
+   Save new list
+=================================== */
+
 export const saveList = (formData) => async dispatch => {
     try {
 
@@ -88,7 +105,10 @@ export const saveList = (formData) => async dispatch => {
 }
 
 
-// Save new word
+/* ===================================
+   Save new word
+=================================== */
+
 export const saveWord = (formData) => async dispatch => {
     try {
 
@@ -105,7 +125,10 @@ export const saveWord = (formData) => async dispatch => {
 }
 
 
-// Open edit form
+/* ===================================
+   Open edit form
+=================================== */
+
 export const openEdit = (edit, editFormData) => async dispatch => {
     try {
 
@@ -142,7 +165,10 @@ export const openEdit = (edit, editFormData) => async dispatch => {
 }
 
 
-// Update word
+/* ===================================
+   Update word
+=================================== */
+
 export const updateWord = (id, formData) => async dispatch => {
     try {
         const config = {
@@ -163,7 +189,10 @@ export const updateWord = (id, formData) => async dispatch => {
 }
 
 
-// Update list
+/* ===================================
+   Update list
+=================================== */
+
 export const updateList = (id, formData) => async dispatch => {
     try {
         const config = {
@@ -184,7 +213,10 @@ export const updateList = (id, formData) => async dispatch => {
 }
 
 
-// Delete list 
+/* ===================================
+   Delete list
+=================================== */
+
 export const deleteList = id => async dispatch => {
     try {
         const res = await axios.delete(`${url}/api/lists/${id}`);
@@ -201,7 +233,10 @@ export const deleteList = id => async dispatch => {
 }
 
 
-// Delete word 
+/* ===================================
+   Delete word
+=================================== */
+ 
 export const deleteWord = id => async dispatch => {
     try {
         const res = await axios.delete(`${url}/api/words/${id}`);
@@ -218,7 +253,10 @@ export const deleteWord = id => async dispatch => {
 }
 
 
-// Close and clear edit word form
+/* ===================================
+   Close and clear edit form
+=================================== */
+
 export const clearEdit = () => async dispatch => {
 
     try {
@@ -233,7 +271,10 @@ export const clearEdit = () => async dispatch => {
 }
 
 
-// Update searchTerm in state
+/* ===================================
+   Update searchTerm in state
+=================================== */
+
 export const getSearchTerm = (searchedWord) => async dispatch => {
     try {
         

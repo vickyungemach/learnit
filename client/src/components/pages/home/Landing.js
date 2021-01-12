@@ -44,7 +44,7 @@ const Landing = ({ words: { count, loading }, startReview, openRanking, review: 
 
     return (
         <div className={windowClass + "-landing"}>
-            
+           
                 { !loading && !loadingList ? list.length === 0 ? gold : silver : '' }
                 { !loading && !loadingList ? windowClass === "desktop" ? (
                         <div className="desktop-landing_menu">

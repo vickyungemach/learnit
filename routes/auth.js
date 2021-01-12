@@ -6,6 +6,7 @@ const { protect } = require('../middleware/auth');
 const router = express.Router();
 
 
+// POST api/user/register  [Register new user]
 router.post('/register', async (req, res) => {
     const { name, password } = req.body;
 
@@ -31,6 +32,7 @@ router.post('/register', async (req, res) => {
 })
 
 
+// POST api/user/login  [Login user]
 router.post('/login', async (req, res) => {
     const { name, password } = req.body;
 
@@ -55,6 +57,7 @@ router.post('/login', async (req, res) => {
 })
 
 
+// GET api/user  [Get logged in user info]
 router.get('/', protect, async (req, res) => {
 
     const user = await User.findById(req.user.id).select('-password');

@@ -17,6 +17,7 @@ router.get('/', protect, async (req, res) => {
     }
 })
 
+
 // GET api/words/review  [Get all words to be reviewed]
 router.get('/review', protect, async (req, res) => {
     try {
@@ -26,6 +27,7 @@ router.get('/review', protect, async (req, res) => {
         console.log(err);
     }
 })
+
 
 // GET api/words/:id  [Get a single word]
 router.get('/:id', async (req, res) => {
@@ -82,6 +84,7 @@ router.put('/:id', async (req, res) => {
         console.log(err);
     }
 })
+
 
 // DELETE api/words/:id  [Delete a word]
 router.delete('/:id', async (req, res) => {

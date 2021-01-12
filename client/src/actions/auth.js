@@ -10,9 +10,13 @@ export const LOGOUT = 'LOGOUT';
 export const CHECK_LOGIN = 'CHECK_LOGIN';
 
 
-// Load user
+/* ===================================
+   Load User
+=================================== */
+
 export const loadUser = () => async dispatch => {
 
+    // If token is in local storage, set token in header
     if(localStorage.token) {
         setAuthToken(localStorage.token);
     }
@@ -32,9 +36,13 @@ export const loadUser = () => async dispatch => {
 }
 
 
-// Login Check to prevent /login flash
+/* ===================================
+   Login Check to prevent login flash  
+=================================== */
+
 export const loginCheck = () => async dispatch => {
 
+    // Set loginCheck to to true after one second
     setTimeout(function(){
         dispatch({
             type: CHECK_LOGIN
@@ -44,7 +52,11 @@ export const loginCheck = () => async dispatch => {
 
 }
 
-// Login user
+
+/* ===================================
+   Login user
+=================================== */
+
 export const login = (name, password) => async dispatch => {
 
     const config = {
@@ -73,7 +85,11 @@ export const login = (name, password) => async dispatch => {
 }
 
 
-// Register user
+
+/* ===================================
+   Register user
+=================================== */
+
 export const register = (name, password) => async dispatch => {
 
     const config = {
@@ -86,37 +102,43 @@ export const register = (name, password) => async dispatch => {
     
     try {
         const res = await axios.post(`${url}/api/user/register`, body, config);
-        console.log(res);
 
         dispatch({
             type: REGISTER_SUCCESS,
             payload: res.data
         })
 
+        // Once user is registered, load user 
         loadUser();
 
     } catch (err) {
-        console.error(err.message);
         dispatch({
-            type: REGISTER_FAIL,
+            type: REGISTER_FAIL
         })
     }
 }
 
 
-// Logout user
+/* ===================================
+   Logout User
+=================================== */
+
 export const logout = () => async dispatch => {
     dispatch({
         type: LOGOUT
     })
 
+    // Refresh page to prevent re-login bug
     setTimeout(function() {
         window.location.reload();
     }, 500);
 }
 
 
-// Show Settings
+/* ===================================
+   Show settings
+=================================== */
+
 export const showSettings = () => async dispatch => {
     try {
         const settings = document.getElementById("settings");

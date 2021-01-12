@@ -94,6 +94,13 @@ export default function(state = initialState, action) {
 
             return {
                 ...state,
+                list: state.list.map(word => {
+                    if(word.english === payload.english) {
+                      return {...word, rating: 0}
+                    } else {
+                      return word
+                    }
+                  }),
                 correctCount: payload.correctCount,
                 dueDate: payload.dueDate,
                 rating: payload.rating
