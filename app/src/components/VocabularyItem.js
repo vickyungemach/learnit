@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 
+
 const VocabularyItem = (props) => {
-    // From from VocabularyScreen
+    // VocabularyScreen props
     const { list, words, navigation } = props;
 
     return (
@@ -11,6 +12,8 @@ const VocabularyItem = (props) => {
         // Navigates to WordListScreen and passes the list to be displayed
         <TouchableOpacity onPress={() => navigation.navigate('WordList', {'list': list})}>
             <View style={styles.container}>
+
+                {/* List title and word count */}
                 <View>
                     <Text style={styles.title}>{list.title}</Text>
                     <Text style={styles.count}>{words.length} Words</Text>
@@ -21,7 +24,6 @@ const VocabularyItem = (props) => {
     )
 }
 
-export default VocabularyItem
 
 const styles = StyleSheet.create({
 
@@ -62,3 +64,4 @@ const styles = StyleSheet.create({
     }
 })
 
+export default VocabularyItem;

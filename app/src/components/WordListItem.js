@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+
 
 const WordListItem = (props) => {
     // From WordListScreen 
@@ -14,7 +15,6 @@ const WordListItem = (props) => {
     )
 }
 
-export default WordListItem
 
 const styles = StyleSheet.create({
 
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         paddingBottom: 19,
         marginVertical: 6,
-        marginHorizontal: 30,
+        marginHorizontal: 20,
         borderRadius: 6,
         alignItems: 'flex-start',
         justifyContent: 'center',
@@ -53,3 +53,5 @@ const styles = StyleSheet.create({
     }
 })
 
+
+export default WordListItem;

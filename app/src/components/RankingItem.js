@@ -1,14 +1,21 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-const RankingItem = ({ emoji, title, count, color }) => {
+
+const RankingItem = (props) => {
+    // RankingScreen props
+    const { emoji, title, count, color } = props
+    
     return (
         <View style={styles.container}>
+
+            {/* Emoji and level name */}
             <View style={styles.level}>
                 <Text style={styles.levelEmoji}>{emoji}</Text>
                 <Text style={styles.levelTitle}>{title}</Text>
             </View>
             
+            {/* Word count tag */}
             <View style={[styles.count, {backgroundColor: color}]}>
                 <Text style={styles.countTag}>{count}</Text>
             </View>
@@ -16,7 +23,6 @@ const RankingItem = ({ emoji, title, count, color }) => {
     )
 }
 
-export default RankingItem
 
 const styles = StyleSheet.create({
 
@@ -56,3 +62,6 @@ const styles = StyleSheet.create({
         color: '#fff'
     } 
 })
+
+
+export default RankingItem;

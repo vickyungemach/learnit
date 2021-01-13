@@ -2,7 +2,7 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     CLEAR_ERROR
-} from '../actions/auth';
+} from '../actions/types';
 
 const initialState = {
     token: '',
@@ -33,8 +33,7 @@ export default function(state = initialState, action) {
                 error: payload
             }
 
-        case CLEAR_ERROR: 
-           
+        case CLEAR_ERROR:      
             return {
                 ...state, 
                 error: null

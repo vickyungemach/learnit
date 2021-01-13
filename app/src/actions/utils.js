@@ -1,13 +1,16 @@
 import { Animated } from 'react-native';
-export const TOGGLE_SLIDESCREEN = 'TOGGLE_SLIDESCREEN';
 
+import { 
+    TOGGLE_SLIDESCREEN 
+} from './types';
 
-// Toggle Slide Screen
+/* ===================================
+   Toggle SlideScreen
+=================================== */
 export const toggleSlide = () => async (dispatch, getState) => {
+    // Get isHidden and bounceValue from state
     const isHidden = getState().utils.slideScreen.isHidden;
     const bounceValue = getState().utils.slideScreen.bounceValue;
-
-    console.log(isHidden)
 
     let toValue = 700;
     

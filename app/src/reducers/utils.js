@@ -2,7 +2,7 @@ import { Animated } from 'react-native';
 
 import {
     TOGGLE_SLIDESCREEN
-} from '../actions/utils';
+} from '../actions/types';
 
 const initialState = {
     slideScreen: {

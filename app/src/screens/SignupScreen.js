@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import pineapple from '../../assets/pineapple.png';
 import { connect } from 'react-redux';
-import ErrorMessage from '../components/ErrorMessage';
-import { NavigationEvents } from 'react-navigation';
 import { clearError } from '../actions/auth';
+import ErrorMessage from '../components/ErrorMessage';
 
 
 const SignupScreen = ({ navigation, error, clearError }) => {
@@ -69,11 +69,6 @@ const SignupScreen = ({ navigation, error, clearError }) => {
     )
 }
 
-const mapStateToProps = state => ({
-    error: state.auth.error
-})
-
-export default connect(mapStateToProps, { clearError })(SignupScreen)
 
 const styles = StyleSheet.create({
 
@@ -134,3 +129,10 @@ const styles = StyleSheet.create({
         fontFamily: 'lato-bold',
     }
 })
+
+
+const mapStateToProps = state => ({
+    error: state.auth.error
+})
+
+export default connect(mapStateToProps, { clearError })(SignupScreen)

@@ -1,17 +1,22 @@
-import React, { useEffect } from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native'
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import goldCircle from '../../assets/gold-circle.png';
-import FooterItem from '../components/FooterItem';
 import book from '../../assets/icons/book-icon.png';
 import bubble from '../../assets/icons/speechbubble-icon.png';
 import { connect } from 'react-redux';
-import { getWords, getLists } from '../actions/words';
+import { getWords } from '../actions/words';
+import { getLists } from '../actions/lists';
+import FooterItem from '../components/FooterItem';
 
 
 const HomeScreen = (props) => {
     const { navigation } = props;
-    const { words: { loading, allWords}, getWords, getLists } = props;
+
+    // mapStateToProps & actions/words
+    const { words: { loading, words }, getWords, getLists } = props;
+
     
+    // Load all words and lists
     useEffect(() => {
         getWords();
         getLists();
@@ -24,29 +29,27 @@ const HomeScreen = (props) => {
                 <View style={styles.circle}>
                     <Image style={styles.image} source={goldCircle} />
                     <Text style={styles.allDone}>All done!</Text>
-                    <Text style={styles.tag}>{allWords.length} Words  ✓</Text>
+                    <Text style={styles.tag}>{words.length} Words  ✓</Text>
                 </View>
             </View>
 
+            {/* Vocabulary Footer */}
             <TouchableOpacity onPress={() => navigation.navigate('Vocabulary')}>
                 <FooterItem title="Vocabulary" icon={book} />
             </TouchableOpacity>
-            
+
+            {/* Conjugation Footer */}
             <TouchableOpacity>
-            <FooterItem title="Conjugation" icon={bubble} />
+                <FooterItem title="Conjugation" icon={bubble} />
             </TouchableOpacity>
-            
-   
+
         </>
     )
-
-
-
 }
 
 
 const styles = StyleSheet.create({
-    
+
     main: {
         flex: 1,
         backgroundColor: '#fff',
@@ -71,7 +74,7 @@ const styles = StyleSheet.create({
         fontSize: 70,
         fontWeight: 'bold',
         fontFamily: 'great-vibes',
-       
+
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -81,7 +84,7 @@ const styles = StyleSheet.create({
         shadowRadius: 4.84,
         elevation: 5,
     },
-    
+
     tag: {
         position: 'absolute',
         right: 0,

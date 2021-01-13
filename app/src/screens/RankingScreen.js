@@ -2,12 +2,13 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import RankingItem from '../components/RankingItem'
 
+
 const RankingScreen = () => {
     return (
         <>
+            {/* Header */}
             <View style={styles.backgroundHeader}>
                 <Text style={styles.title}>Ranking</Text>
-
             </View>
 
             <View style={styles.backgroundContent}>
@@ -26,7 +27,6 @@ const RankingScreen = () => {
     )
 }
 
-export default RankingScreen
 
 const styles = StyleSheet.create({
 
@@ -47,3 +47,6 @@ const styles = StyleSheet.create({
         marginBottom: 7
     },
 })
+
+
+export default RankingScreen;

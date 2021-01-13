@@ -25,7 +25,6 @@ import RankingScreen from './src/screens/RankingScreen';
 import SignupScreen from './src/screens/SignupScreen';
 
 
-
 // Load fonts from assets/fonts
 const getFonts = () => Font.loadAsync({
   'great-vibes': require('./assets/fonts/GreatVibes-Regular.ttf'),
@@ -41,48 +40,46 @@ const getFonts = () => Font.loadAsync({
 
 // Create Navigation
 const switchNavigator = createSwitchNavigator({
-  
+
   // Login Screens
   loginFlow: createStackNavigator({
     Login: { screen: LoginScreen, navigationOptions: { headerShown: false } },
     Signup: { screen: SignupScreen, navigationOptions: { headerShown: false } }
   }),
-  
-// Main Screens
-mainFlow: createStackNavigator({
-  
-  Home: HomeScreen,
-  Vocabulary: VocabularyScreen,
-  WordList: WordListScreen,
-  ReviewI: ReviewScreenI,
-  ReviewII: ReviewScreenII,
-  Ranking: RankingScreen
 
-  // Default Navigation Options
-}, {
-  initialRouteName: 'Home',
-  defaultNavigationOptions: {
-    title: 'LearnIt',
-    cardStyle: {
-      backgroundColor: 'white'
-    },
-    headerStyle: {
-      backgroundColor: '#FAFAFC',
-      height: 110
-    },
-    headerTintColor: '#413d3d',
-    headerTitleStyle: {
-      fontFamily: 'lobstertwo-regular',
-      fontSize: 27
-    },
-    headerBackTitle: null
-  }
-})
-})
+  // Main Screens
+  mainFlow: createStackNavigator({
 
+    Home: HomeScreen,
+    Vocabulary: VocabularyScreen,
+    WordList: WordListScreen,
+    ReviewI: ReviewScreenI,
+    ReviewII: ReviewScreenII,
+    Ranking: RankingScreen
+
+    // Default Navigation Options
+  }, {
+    initialRouteName: 'Home',
+    defaultNavigationOptions: {
+      title: 'LearnIt',
+      cardStyle: {
+        backgroundColor: 'white'
+      },
+      headerStyle: {
+        backgroundColor: '#FAFAFC',
+        height: 110
+      },
+      headerTintColor: '#413d3d',
+      headerTitleStyle: {
+        fontFamily: 'lobstertwo-regular',
+        fontSize: 27
+      },
+      headerBackTitle: null
+    }
+  })
+})
 
 const Root = createAppContainer(switchNavigator);
-
 
 
 const App = () => {
@@ -101,7 +98,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <Root ref={(navigator) => {setNavigator(navigator)}} />
+      <Root ref={(navigator) => { setNavigator(navigator) }} />
     </Provider>
   )
 }

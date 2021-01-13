@@ -1,18 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import WordListItem from '../components/WordListItem';
-import WordForm from '../components/WordForm';
 import { connect } from 'react-redux';
 import { saveWord } from '../actions/words';
 import { toggleSlide } from '../actions/utils';
 import SlideScreen from '../components/SlideScreen';
+import WordListItem from '../components/WordListItem';
+import WordForm from '../components/WordForm';
+
 
 const WordListScreen = (props) => {
     const { navigation } = props;
 
-    // actions/words & mapStateToProps
-    const { saveWord, allWords } = props;
+    // mapStateToProps & actions/word
+    const { saveWord, words } = props;
 
     // actions/utils
     const { toggleSlide } = props;
@@ -20,24 +21,16 @@ const WordListScreen = (props) => {
 
     // VocabularyItem navigation.navigate()
     const list = navigation.getParam('list');
-    console.log(list)
 
 
-    // Filter words 
-    const listWords = allWords.filter(word => {
+    // Filter words by list
+    const listWords = words.filter(word => {
         return word.list._id === list._id
     })
 
-    // OnSubmit to save new word
+    // OnSubmit passed down to WordForm
     const onSubmit = (word, translation) => {
-        const formData = {
-            spanish: word,
-            english: translation,
-            list: list._id
-        }
-
-        saveWord(formData)
-        toggleSlide()
+        saveWord(word, translation, list._id)
     }
 
     return (
@@ -54,7 +47,7 @@ const WordListScreen = (props) => {
                 </TouchableOpacity>
             </View>
 
-            {/* List of WordListItems */}
+            {/* List of Words */}
             <View style={styles.backgroundContent}>
                 <FlatList
                     showsVerticalScrollIndicator={false}
@@ -69,7 +62,8 @@ const WordListScreen = (props) => {
             {/* Hidden WordForm in Slide Screen */}
             <SlideScreen>
                 <WordForm
-                    title={list.title}
+                    headerText={list.title}
+                    buttonText="Add word"
                     onSubmit={onSubmit}
                 />
             </SlideScreen>
@@ -131,7 +125,7 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = state => ({
-    allWords: state.words.allWords
+    words: state.words.words
 })
 
 export default connect(mapStateToProps, { saveWord, toggleSlide })(WordListScreen);

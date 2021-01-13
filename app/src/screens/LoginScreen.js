@@ -1,22 +1,27 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import AppLoading from 'expo-app-loading';
 import pineapple from '../../assets/pineapple.png';
 import { connect } from 'react-redux'
 import { login, clearError, localLogin } from '../actions/auth';
 import ErrorMessage from '../components/ErrorMessage';
-import { NavigationEvents } from 'react-navigation';
-import AppLoading from 'expo-app-loading';
 
 
-const LoginScreen = ({ navigation, login, auth, clearError, localLogin }) => {
-    const { error } = auth
+const LoginScreen = (props) => {
+    const { navigation } = props;
 
+    // mapStateToProps & actions/auth
+    const { auth: { error }, login, clearError, localLogin } = props;
+
+    // Wait until AsyncStorage was checked for token
     const [loginCheck, setLoginCheck ] = useState(false);
 
+    // Form State
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    // Wait to check for token in asyncStorage
+
+    // Run localLogin() and check if token exists in AsyncStorage
     if (!loginCheck) {
         return (
             <AppLoading
@@ -34,7 +39,7 @@ const LoginScreen = ({ navigation, login, auth, clearError, localLogin }) => {
             {/* Clear error between screens */}
             <NavigationEvents onWillFocus={clearError} />
 
-            {/* Pinapple and Header */}
+           {/* Pinapple and Header */}
             <Image style={styles.pineapple} source={pineapple} />
             <Text style={styles.title} >Sign into your account</Text>
 

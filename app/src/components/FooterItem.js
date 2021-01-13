@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
 
-const FooterItem = ({ title, icon }) => {
+
+const FooterItem = (props) => {
+    // HomeScreen props
+    const { title, icon } = props;
+
     return (
         <View style={styles.container} >
             <Image style={styles.icon} source={icon} />
@@ -12,7 +16,6 @@ const FooterItem = ({ title, icon }) => {
     )
 }
 
-export default FooterItem
 
 const styles = StyleSheet.create({
     
@@ -46,3 +49,6 @@ const styles = StyleSheet.create({
         paddingRight: 40
     }
 })
+
+
+export default FooterItem;

@@ -7,8 +7,8 @@ import ErrorMessage from '../components/ErrorMessage';
 
 
 const WordForm = (props) => {
-    //  WordListScreen props
-    const { headerText, buttonText, onSubmit, editWord, editTranslation } = props;
+    // VocabularyScreen
+    const { headerText, buttonText, onSubmit, editList } = props;
 
     // mapStateToProps
     const { error } = props
@@ -18,14 +18,12 @@ const WordForm = (props) => {
 
 
     // Form state
-    const [word, setWord] = useState(!editWord ? '' : editWord);
-    const [translation, setTranslation] = useState(!editTranslation ? '' : editTranslation)
-
+    const [listName, setListName] = useState(!editList ? '' : editList)
 
     const clearState = () => {
-        setWord('');
-        setTranslation('');
+        setListName('');
     }
+
 
 
     return (
@@ -42,7 +40,7 @@ const WordForm = (props) => {
                 }}
             />
 
-            < View style={styles.container} >
+            <View style={styles.container} >
 
                 {/* Form header */}
                 <TextInput style={styles.title} > {headerText} </TextInput>
@@ -50,27 +48,19 @@ const WordForm = (props) => {
                 {/* Error message */}
                 {error ? <ErrorMessage message={error} /> : null}
 
-                {/* Word input */}
+                {/* List input */}
                 <TextInput
                     style={styles.input}
-                    placeholder="Spanish"
-                    value={word}
-                    onChangeText={newInput => setWord(newInput)}
-                />
-
-                {/* Translation input */}
-                <TextInput
-                    style={styles.input}
-                    placeholder="English"
-                    value={translation}
-                    onChangeText={newInput => setTranslation(newInput)}
+                    placeholder="List name"
+                    value={listName}
+                    onChangeText={newInput => setListName(newInput)}
                 />
 
                 {/* Save word button */}
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                        onSubmit(word, translation);
+                        onSubmit(listName);
                         clearState();
                     }}>
                     <Text style={styles.buttonText} selectionColor={'#f3c74f'}>{buttonText}</Text>
@@ -84,7 +74,7 @@ const WordForm = (props) => {
 const styles = StyleSheet.create({
 
     container: {
-        marginTop: '40%',
+        marginTop: '50%',
         marginHorizontal: 35,
         alignItems: 'center'
     },

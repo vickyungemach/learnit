@@ -1,14 +1,19 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+
 
 const ReviewScreenII = () => {
     return (
         <>
+            {/* Header word to translate */}
             <View style={styles.backgroundHeader}>
                 <Text style={styles.word}>candle</Text>
             </View>
 
+            {/* 4 multiple choice boxes */}
             <View style={styles.backgroundContent}>
+
+                {/* Top row */}
                 <View style={styles.rowTop}>
                     <View style={styles.cube}>
                         <Text style={styles.cubeText}>la varita</Text>
@@ -19,6 +24,7 @@ const ReviewScreenII = () => {
                     </View>
                 </View>
 
+                {/* Bottom row */}
                 <View style={styles.rowBottom}>
                     <View style={styles.cube}>
                         <Text style={styles.cubeText}>merecer</Text>
@@ -28,13 +34,11 @@ const ReviewScreenII = () => {
                     </View>
                 </View>
 
-
             </View>
         </>
     )
 }
 
-export default ReviewScreenII
 
 const styles = StyleSheet.create({
 
@@ -98,3 +102,6 @@ const styles = StyleSheet.create({
         color: '#413d3d'
     }
 })
+
+
+export default ReviewScreenII;

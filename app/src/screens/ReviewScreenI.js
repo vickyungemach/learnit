@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, View, TextInput } from 'react-native'
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
+
 
 const ReviewScreenII = () => {
+    // Form State
     const [placeholder, setPlaceholder] = useState('Translation');
     const [translation, setTranslation] = useState('')
 
@@ -13,19 +15,15 @@ const ReviewScreenII = () => {
         !translation ? setPlaceholder('Translation') : null
     }
 
-    function onChange(e) {
-        setTranslation(e.target.value)
-    }
-
-
     return (
         <>
+            {/* Header word to translate */}
             <View style={styles.backgroundHeader}>
                 <Text style={styles.word}>candle</Text>
             </View>
 
             <View style={styles.backgroundContent}>
-            
+                {/* Translate input */}
                 <TextInput 
                     autoCapitalize='none'
                     autoCorrect={false}
@@ -34,7 +32,7 @@ const ReviewScreenII = () => {
                     onFocus={hidePlaceholder} 
                     onBlur={showPlaceholder}
                     value={translation}
-                    onChange={onChange}
+                    onChangeText={(newInput) => setTranslation(newInput)}
                     selectionColor={'#f3c74f'}
                 />
             </View>
@@ -42,7 +40,6 @@ const ReviewScreenII = () => {
     )
 }
 
-export default ReviewScreenII
 
 const styles = StyleSheet.create({
 
@@ -88,3 +85,6 @@ const styles = StyleSheet.create({
         elevation: 0
     }
 })
+
+
+export default ReviewScreenII;

@@ -1,12 +1,17 @@
 import api from '../utils/api';
 import { navigate } from '../navigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAIL = 'LOGIN_FAIL';
-export const CLEAR_ERROR = 'CLEAR_ERROR';
+
+import { 
+    LOGIN_SUCCESS, 
+    LOGIN_FAIL, 
+    CLEAR_ERROR 
+} from './types';
 
 
-// Login user
+/* ===================================
+   Login user
+=================================== */
 export const login = (name, password) => async dispatch => {
     const body = JSON.stringify({ name, password });
     
@@ -20,6 +25,7 @@ export const login = (name, password) => async dispatch => {
             payload: res.data
         })
 
+        // Redirect to Home Screen after login
         navigate('Home');
 
     } catch (err) {
@@ -30,7 +36,7 @@ export const login = (name, password) => async dispatch => {
             payload: 'Something went wrong'
         })
 
-        // Remove the message after 3 sec
+        // Remove error message after 3 sec
         setTimeout(function() {
             dispatch({
                 type: LOGIN_FAIL,
@@ -41,7 +47,9 @@ export const login = (name, password) => async dispatch => {
 }
 
 
-// Clear error message
+/* ===================================
+   Clear error message
+=================================== */
 export  const clearError = () => dispatch => {
     dispatch({
         type: CLEAR_ERROR
@@ -49,7 +57,10 @@ export  const clearError = () => dispatch => {
 }
 
 
-// Check asyncStorag for token and sign in
+
+/* ===================================
+   AsyncStorage for local signin
+=================================== */
 export const localLogin = () => async dispatch => {
     const token = await AsyncStorage.getItem('token');
     if(token) {
@@ -57,8 +68,8 @@ export const localLogin = () => async dispatch => {
             type: LOGIN_SUCCESS,
             payload: token
         })
-
         navigate('Home');
+
     } else {
         navigate('Login');
     }

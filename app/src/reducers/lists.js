@@ -1,13 +1,11 @@
 import {
-    GET_WORDS_SUCCESS,
-    GET_WORDS_FAIL,
     GET_LISTS,
-    SAVE_WORD_SUCCESS,
-    SAVE_WORD_FAIL
+    SAVE_LIST_SUCCESS,
+    SAVE_LIST_FAIL
 } from '../actions/types';
 
 const initialState = {
-    words: [],
+    lists: [],
     error: '',
     loading: true
 }
@@ -17,33 +15,25 @@ export default function (state = initialState, action) {
 
     switch (type) {
 
-        case GET_WORDS_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                words: payload
-            }
-
-        case SAVE_WORD_FAIL:
-        case GET_WORDS_FAIL:
-            return {
-                ...state,
-                loading: false,
-                error: payload
-            }
-
-
-        case SAVE_WORD_SUCCESS:
-            return {
-                ...state,
-                words: [...state.words, payload]
-            }
-
         case GET_LISTS:
             return {
                 ...state,
                 loading: false,
                 lists: payload
+            }
+
+        case SAVE_LIST_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                lists: [payload, ...state.lists]
+            }
+
+        case SAVE_LIST_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: payload
             }
 
         default:

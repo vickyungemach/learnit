@@ -1,30 +1,30 @@
-import React from 'react'
-import { StyleSheet, TextInput, View, Text } from 'react-native'
+import React from 'react';
+import { StyleSheet, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; 
 
-const SearchBar = ({  }) => {
+
+const SearchBar = () => {
    
-    return (
-        
+    return ( 
         <View style={styles.background}>
             
+            {/* Magnifying glass icon */}
             <Ionicons 
                 name="search" 
                 style={styles.iconStyle} 
                 color="darkgrey" 
             />
 
+            {/* Searchbar input */}
             <TextInput 
                 style={styles.inputStyle} 
                 placeholder="Search Vocabulary" 
-                
             />
 
         </View>
     )
 }
 
-export default SearchBar
 
 const styles = StyleSheet.create({
     
@@ -57,3 +57,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 15
     }
 })
+
+
+export default SearchBar;
