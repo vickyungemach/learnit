@@ -94,7 +94,7 @@ router.delete('/:id', async (req, res) => {
         return res.status(404).json({msg: "Word not found"});
     }
 
-    res.status(200).json({word})
+    res.status(200).json(word)
 })
 
 

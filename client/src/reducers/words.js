@@ -94,7 +94,7 @@ export default function (state = initialState, action) {
 
             return {
                 ...state,
-                words: state.words.filter(word => word._id !== payload.word._id)
+                words: state.words.filter(word => word._id !== payload._id)
             }
 
         
@@ -121,7 +121,7 @@ export default function (state = initialState, action) {
 
             return {
                 ...state,
-                lists: [...state.lists, payload.list]
+                lists: [...state.lists, payload]
             }
 
         case OPEN_EDIT_LIST:
@@ -144,8 +144,8 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 lists: state.lists.map(list => {
-                    if (list._id === payload.list._id) {
-                        return payload.list;
+                    if (list._id === payload._id) {
+                        return payload;
                     }
                     return list;
                 })

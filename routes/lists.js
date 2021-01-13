@@ -35,7 +35,7 @@ router.post('/', protect, async (req, res) => {
         }
 
         const list = await List.create(reqList);
-        res.status(201).json({ list });
+        res.status(201).json(list);
     } catch (err) {
         console.log(err);
     }
@@ -51,7 +51,7 @@ router.put('/:id', async (req, res) => {
             return res.status(404).json({msg: "List not found"});
         }
 
-        res.status(200).json({ list });
+        res.status(200).json(list);
     } catch (err) {
         console.log(err);
     }
