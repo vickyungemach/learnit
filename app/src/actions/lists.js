@@ -3,7 +3,9 @@ import api from '../utils/api';
 import {
     GET_LISTS,
     SAVE_LIST_SUCCESS,
-    SAVE_LIST_FAIL
+    SAVE_LIST_FAIL,
+    DELETE_LIST_SUCCESS,
+    UPDATE_LIST_SUCCESS
 } from './types';
 
 
@@ -34,10 +36,10 @@ export const saveList = (title) => async dispatch => {
 
     try {
         const res = await api.post('/lists', body);
-        console.log(res.data.list)
 
         dispatch({
             type: SAVE_LIST_SUCCESS,
+            // Eventually fix res.json({ list }) on backend
             payload: res.data.list
         })
 
@@ -49,6 +51,44 @@ export const saveList = (title) => async dispatch => {
             payload: 'Something went wrong'
         })
     }
+}
 
 
+/* ===================================
+   Update list
+=================================== */
+
+export const updateList = (title, id) => async dispatch => {
+    try {
+        const body = JSON.stringify({ title });
+
+        const res = await api.put(`/lists/${id}`, body);
+
+        dispatch({
+            type: UPDATE_LIST_SUCCESS,
+            payload: res.data.list
+        })
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+
+
+/* ===================================
+   Delete list
+=================================== */
+
+export const deleteList = id => async dispatch => {
+    try {
+        const res = await api.delete(`lists/${id}`);
+
+        dispatch({
+            type: DELETE_LIST_SUCCESS,
+            payload: res.data.list
+        })
+
+    } catch (err) {
+        console.log(err.message);
+
+    }
 }

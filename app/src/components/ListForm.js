@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button } from 'react-native';
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { connect } from 'react-redux'
 import { toggleSlide } from '../actions/utils';
@@ -8,7 +8,7 @@ import ErrorMessage from '../components/ErrorMessage';
 
 const WordForm = (props) => {
     // VocabularyScreen
-    const { headerText, buttonText, onSubmit, editList } = props;
+    const { headerText, buttonText, onSubmit, editList, listId } = props;
 
     // mapStateToProps
     const { error } = props
@@ -16,20 +16,22 @@ const WordForm = (props) => {
     // actions/utils
     const { toggleSlide } = props;
 
-
     // Form state
-    const [listName, setListName] = useState(!editList ? '' : editList)
+    const [listName, setListName] = useState('')
+
+    useEffect(() => {
+        setListName(editList)   
+    }, [editList])
 
     const clearState = () => {
         setListName('');
     }
 
 
-
     return (
         <>
             {/* Closing x button */}
-            < FontAwesome
+            <FontAwesome
                 style={styles.close}
                 name="times"
                 size={24}
@@ -43,7 +45,7 @@ const WordForm = (props) => {
             <View style={styles.container} >
 
                 {/* Form header */}
-                <TextInput style={styles.title} > {headerText} </TextInput>
+                <Text style={styles.title} > {headerText} </Text>
 
                 {/* Error message */}
                 {error ? <ErrorMessage message={error} /> : null}
@@ -60,7 +62,7 @@ const WordForm = (props) => {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                        onSubmit(listName);
+                        onSubmit(listName, listId);
                         clearState();
                     }}>
                     <Text style={styles.buttonText} selectionColor={'#f3c74f'}>{buttonText}</Text>
@@ -74,7 +76,7 @@ const WordForm = (props) => {
 const styles = StyleSheet.create({
 
     container: {
-        marginTop: '50%',
+        marginTop: '30%',
         marginHorizontal: 35,
         alignItems: 'center'
     },
@@ -122,7 +124,8 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = state => ({
-    error: state.words.error
+    error: state.words.error,
+    edit: state.utils.edit
 })
 
 export default connect(mapStateToProps, { toggleSlide })(WordForm)

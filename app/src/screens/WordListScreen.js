@@ -1,19 +1,21 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { SwipeListView } from 'react-native-swipe-list-view';
 import { connect } from 'react-redux';
-import { saveWord } from '../actions/words';
+import { saveWord, deleteWord, updateWord } from '../actions/words';
 import { toggleSlide } from '../actions/utils';
 import SlideScreen from '../components/SlideScreen';
 import WordListItem from '../components/WordListItem';
 import WordForm from '../components/WordForm';
+import HiddenItemWithActions from '../components/HiddenItemWithActions';
 
 
 const WordListScreen = (props) => {
     const { navigation } = props;
 
     // mapStateToProps & actions/word
-    const { saveWord, words } = props;
+    const { saveWord, deleteWord, updateWord, words } = props;
 
     // actions/utils
     const { toggleSlide } = props;
@@ -28,10 +30,59 @@ const WordListScreen = (props) => {
         return word.list._id === list._id
     })
 
-    // OnSubmit passed down to WordForm
-    const onSubmit = (word, translation) => {
-        saveWord(word, translation, list._id)
+    // Edit state
+    const [editWord, setEditWord] = useState('');
+    const [editTranslation, setEditTranslation] = useState('');
+    const [editId, setEditId] = useState('');
+
+    // Clear edit state
+    const clearEdit = () => {
+        setEditWord('');
+        setEditTranslation('');
+        setEditId('')
     }
+
+
+    // Save or update list
+    const onSubmit = (word, translation, list, id) => {
+        if (!editWord) {
+            saveWord(word, translation, list);
+        } else {
+            updateWord(word, translation, id);
+            toggleSlide();
+            clearEdit();
+        }
+    }
+
+
+
+    // Edit button
+    const editRow = (rowMap, rowKey) => {
+        if (rowMap[rowKey]) {
+            rowMap[rowKey].closeRow();
+
+            // When sliding down form, wipe edit state
+            clearEdit();
+        }
+
+        // Open form with edit formdata
+        setEditWord(words.find(word => word._id === rowKey).spanish);
+        setEditTranslation(words.find(word => word._id === rowKey).english);
+        setEditId(rowKey);
+
+        toggleSlide();
+    }
+
+    // Delete button
+    const deleteRow = (rowMap, rowKey) => {
+        if (rowMap[rowKey]) {
+            rowMap[rowKey].closeRow();
+        }
+        deleteWord(rowKey)
+    }
+
+
+
 
     return (
         <>
@@ -49,12 +100,24 @@ const WordListScreen = (props) => {
 
             {/* List of Words */}
             <View style={styles.backgroundContent}>
-                <FlatList
+                <SwipeListView
                     showsVerticalScrollIndicator={false}
                     data={listWords}
                     keyExtractor={(word) => word._id}
                     renderItem={({ item }) => {
                         return <WordListItem word={item} />
+                    }}
+                    rightOpenValue={-170}
+                    renderHiddenItem={({ item }, rowMap) => {
+                        return (
+                            <HiddenItemWithActions
+                                data={item}
+                                rowMap={rowMap}
+                                onEdit={() => editRow(rowMap, item._id)}
+                                onDelete={() => deleteRow(rowMap, item._id)}
+                                item={item.spanish}
+                            />
+                        )
                     }}
                 />
             </View>
@@ -63,8 +126,12 @@ const WordListScreen = (props) => {
             <SlideScreen>
                 <WordForm
                     headerText={list.title}
-                    buttonText="Add word"
+                    buttonText={!editWord ? 'Add word' : 'Save word'}
                     onSubmit={onSubmit}
+                    editWord={editWord}
+                    editTranslation={editTranslation}
+                    editId={editId}
+                    editListId={list._id}
                 />
             </SlideScreen>
         </>
@@ -128,4 +195,4 @@ const mapStateToProps = state => ({
     words: state.words.words
 })
 
-export default connect(mapStateToProps, { saveWord, toggleSlide })(WordListScreen);
+export default connect(mapStateToProps, { saveWord, deleteWord, updateWord, toggleSlide })(WordListScreen);

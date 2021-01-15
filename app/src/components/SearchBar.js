@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; 
+import { connect } from 'react-redux';
+import { getSearchTerm } from '../actions/utils';
 
 
-const SearchBar = () => {
-   
+const SearchBar = ({ getSearchTerm, searchTerm }) => {
+
     return ( 
         <View style={styles.background}>
             
@@ -19,6 +21,8 @@ const SearchBar = () => {
             <TextInput 
                 style={styles.inputStyle} 
                 placeholder="Search Vocabulary" 
+                value={searchTerm}
+                onChangeText={(input) => getSearchTerm(input)}
             />
 
         </View>
@@ -59,4 +63,8 @@ const styles = StyleSheet.create({
 })
 
 
-export default SearchBar;
+const mapStateToProps = state => ({
+    searchTerm: state.utils.searchTerm
+})
+
+export default connect(mapStateToProps, { getSearchTerm })(SearchBar);

@@ -5,9 +5,8 @@ import {
     GET_WORDS_FAIL,
     SAVE_WORD_SUCCESS,
     SAVE_WORD_FAIL,
-    GET_LISTS,
-    SAVE_LIST_SUCCESS,
-    SAVE_LIST_FAIL
+    DELETE_WORD_SUCCESS,
+    UPDATE_WORD_SUCCESS
 } from './types';
 
 
@@ -33,22 +32,6 @@ export const getWords = () => async dispatch => {
     }
 }
 
-/* ===================================
-   Get all lists
-=================================== */
-export const getLists = () => async dispatch => {
-    try {
-        const res = await api.get('/lists');
-
-        dispatch({
-            type: GET_LISTS,
-            payload: res.data
-        })
-
-    } catch (err) {
-        console.log(err)
-    }
-}
 
 
 /* ===================================
@@ -56,6 +39,7 @@ export const getLists = () => async dispatch => {
 =================================== */
 export const saveWord = (spanish, english, list) => async dispatch => {
     const body = JSON.stringify({ spanish, english, list });
+    console.log(body)
 
     try {
         const res = await api.post('/words', body);
@@ -85,26 +69,38 @@ export const saveWord = (spanish, english, list) => async dispatch => {
 
 
 /* ===================================
-   Save new list
+   Update word
 =================================== */
-export const saveList = (title) => async dispatch => {
-    const body = JSON.stringify({ title });
-
+export const updateWord = (word, translation, id) => async dispatch => {
     try {
-        const res = await api.post('/lists', body);
-
+        const body = { spanish: word, english: translation }
+        const res = await api.put(`/words/${id}`, body);
+        
         dispatch({
-            type: SAVE_LIST_SUCCESS,
+            type: UPDATE_WORD_SUCCESS,
             payload: res.data
         })
     } catch (err) {
-        console.log(err);
+        console.log(err.message)
+    }
+}
+
+
+
+/* ===================================
+   Delete word
+=================================== */
+export const deleteWord = id => async dispatch => {
+    try {
+        const res = await api.delete(`/words/${id}`);
 
         dispatch({
-            type: SAVE_LIST_FAIL,
-            payload: res.data
+            type: DELETE_WORD_SUCCESS,
+            payload: res.data.word
         })
+
+    } catch (err) {
+        console.log(err.message);
+
     }
-
-
 }

@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button } from 'react-native';
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { connect } from 'react-redux'
 import { toggleSlide } from '../actions/utils';
@@ -8,7 +8,7 @@ import ErrorMessage from '../components/ErrorMessage';
 
 const WordForm = (props) => {
     //  WordListScreen props
-    const { headerText, buttonText, onSubmit, editWord, editTranslation } = props;
+    const { headerText, buttonText, onSubmit, editWord, editTranslation, editId, editListId } = props;
 
     // mapStateToProps
     const { error } = props
@@ -18,8 +18,14 @@ const WordForm = (props) => {
 
 
     // Form state
-    const [word, setWord] = useState(!editWord ? '' : editWord);
-    const [translation, setTranslation] = useState(!editTranslation ? '' : editTranslation)
+    const [word, setWord] = useState('');
+    const [translation, setTranslation] = useState('')
+
+    // Set state with words to edit
+    useEffect(() => {
+        setWord(editWord);
+        setTranslation(editTranslation)   
+    }, [editWord, editTranslation])
 
 
     const clearState = () => {
@@ -56,6 +62,7 @@ const WordForm = (props) => {
                     placeholder="Spanish"
                     value={word}
                     onChangeText={newInput => setWord(newInput)}
+                    autoCapitalize="none"
                 />
 
                 {/* Translation input */}
@@ -64,13 +71,14 @@ const WordForm = (props) => {
                     placeholder="English"
                     value={translation}
                     onChangeText={newInput => setTranslation(newInput)}
+                    autoCapitalize="none"
                 />
 
                 {/* Save word button */}
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                        onSubmit(word, translation);
+                        onSubmit(word, translation, editListId, editId);
                         clearState();
                     }}>
                     <Text style={styles.buttonText} selectionColor={'#f3c74f'}>{buttonText}</Text>
