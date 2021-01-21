@@ -1,51 +1,96 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import goldCircle from '../../assets/gold-circle.png';
 import book from '../../assets/icons/book-icon.png';
 import bubble from '../../assets/icons/speechbubble-icon.png';
+import { Feather } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { getWords } from '../actions/words';
 import { getLists } from '../actions/lists';
+import { getReview } from '../actions/review';
 import FooterItem from '../components/FooterItem';
+
 
 
 const HomeScreen = (props) => {
     const { navigation } = props;
 
-    // mapStateToProps & actions/words
-    const { words: { loading, words }, getWords, getLists } = props;
+    // actions
+    const { getWords, getLists, getReview } = props;
 
-    
+    // mapStateToProps
+    const { words: { loading, words }, review: { list } } = props;
+
+    // Refresh review list when HomeScreen is focused
+    navigation.addListener('didFocus', () => {
+        getReview();
+      }
+    );
+
     // Load all words and lists
     useEffect(() => {
         getWords();
         getLists();
+        getReview();
     }, [])
+
+
+    const goldCircle = (
+        <TouchableOpacity onPress={() => {navigation.navigate('Ranking')}}>
+            <View style={styles.circle}>
+                <Image style={styles.image} source={require('../../assets/gold-circle.png')} />
+                <Text style={styles.writing}>All done!</Text>
+                <Text style={[styles.tag, styles.allDone]}>{words.length} Words  ✓</Text>
+            </View>
+        </TouchableOpacity>
+    )
+
+    const silverCircle = (
+
+        <TouchableOpacity onPress={() => {
+            navigation.navigate('ReviewI')
+        }}>
+            <View style={styles.circle}>
+                <Image style={styles.image} source={require('../../assets/silver-circle.png')} />
+                <Text style={styles.writing}>Review!</Text>
+                <Text style={[styles.tag, styles.review]}>
+                    <Feather name="book-open" size={18} color="#fcc200" />  {list && list.length}
+                </Text>
+            </View>
+        </TouchableOpacity>
+
+    )
 
 
     return (
         <>
-            <View style={styles.main}>
-                <View style={styles.circle}>
-                    <Image style={styles.image} source={goldCircle} />
-                    <Text style={styles.allDone}>All done!</Text>
-                    <Text style={styles.tag}>{words.length} Words  ✓</Text>
-                </View>
-            </View>
+            {
+                !loading && (
+                    <>
+                        {/* Golden circle when review = 0, otherwise silver circle */}
+                        <View style={styles.main}>
+                            {
+                                !list.length ? goldCircle : silverCircle
+                            }
+                        </View>
 
-            {/* Vocabulary Footer */}
-            <TouchableOpacity onPress={() => navigation.navigate('Vocabulary')}>
-                <FooterItem title="Vocabulary" icon={book} />
-            </TouchableOpacity>
+                        {/* Vocabulary Footer */}
+                        <TouchableOpacity onPress={() => navigation.navigate('Vocabulary')}>
+                            <FooterItem title="Vocabulary" icon={book} />
+                        </TouchableOpacity>
 
-            {/* Conjugation Footer */}
-            <TouchableOpacity>
-                <FooterItem title="Conjugation" icon={bubble} />
-            </TouchableOpacity>
+                        {/* Conjugation Footer */}
+                        <TouchableOpacity>
+                            <FooterItem title="Conjugation" icon={bubble} />
+                        </TouchableOpacity>
+                    </>
+                )
+            }
 
         </>
     )
 }
+
+
 
 
 const styles = StyleSheet.create({
@@ -68,7 +113,7 @@ const styles = StyleSheet.create({
         height: 240
     },
 
-    allDone: {
+    writing: {
         color: 'white',
         position: 'absolute',
         fontSize: 70,
@@ -89,8 +134,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0,
         bottom: 40,
-        backgroundColor: '#E8C157',
-        color: 'white',
         paddingHorizontal: 13,
         paddingVertical: 7,
         borderRadius: 7,
@@ -99,11 +142,28 @@ const styles = StyleSheet.create({
         overflow: "hidden",
         fontFamily: 'lobstertwo-bold',
         fontSize: 16
+    },
+
+    allDone: {
+        backgroundColor: '#E8C157',
+        color: 'white'
+    },
+
+    review: {
+        // backgroundColor: '#f8e1e1',
+        // color: 'lightcoral',
+        backgroundColor: '#fff4d5',
+        color: '#fcc200',
+        right: 15,
+        borderColor: '#fcc200'
     }
 })
 
+
+
 const mapStateToProps = state => ({
-    words: state.words
+    words: state.words,
+    review: state.review
 })
 
-export default connect(mapStateToProps, { getWords, getLists })(HomeScreen)
+export default connect(mapStateToProps, { getWords, getLists, getReview })(HomeScreen)

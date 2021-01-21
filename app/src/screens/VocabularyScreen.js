@@ -1,132 +1,136 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { connect } from 'react-redux';
-import { saveList, deleteList, updateList } from '../actions/lists';
-import { toggleSlide } from '../actions/utils';
+import { deleteList } from '../actions/lists';
+import { deleteWord } from '../actions/words';
+import { openEdit, toggleSlide } from '../actions/utils';
 import VocabularyItem from '../components/VocabularyItem';
+import WordListItem from '../components/WordListItem';
 import SearchBar from '../components/SearchBar';
 import SlideScreen from '../components/SlideScreen';
-import ListForm from '../components/ListForm';
+import EditForm from '../components/EditForm';
 import HiddenItemWithActions from '../components/HiddenItemWithActions';
-import WordListItem from '../components/WordListItem';
-import WordForm from '../components/WordForm';
 
 
 const VocabularyScreen = (props) => {
     const { navigation } = props;
 
-    // mapStateToProps & actions/lists, actions/utils
-    const { words, lists, search, saveList, deleteList, updateList, toggleSlide } = props
+    // actions
+    const { deleteList, toggleSlide, openEdit, deleteWord } = props
+
+    // mapStateToProps
+    const { words, lists, editMode, search } = props
 
 
-    // Edit state
-    const [edit, setEdit] = useState('');
-    const [id, setId] = useState('');
+    // If searchbar is being used, filter all words for search results
+    const searchResults = words.filter(word => {
+        return word.english.toLowerCase().includes(search.toLowerCase()) ||
+            word.spanish.toLowerCase().includes(search.toLowerCase())
+    })
 
 
-    // Save or update list
-    const onSubmit = (listname, listId) => {
-        if (!edit) {
-            saveList(listname);
-        } else {
-            updateList(listname, listId)
-        }
-
-        toggleSlide();
-    }
-
-
-    // SwipeListView visible item
-    const renderItem = ({ item }) => {
-        const filteredWords = words.filter(word => {
-            return word.list.title === item.title
-        })
-        return <VocabularyItem list={item} words={filteredWords} navigation={navigation} />
-    }
-
-    // SwipeListView hidden item
-    const renderHiddenItem = ({ item }, rowMap) => {
-        return (
-            <HiddenItemWithActions
-                data={item}
-                rowMap={rowMap}
-                onEdit={() => editRow(rowMap, item._id)}
-                onDelete={() => deleteRow(rowMap, item._id)}
-                item={item.title}
-            />
-        )
-    }
-
-    // Edit button
+    // hidden edit button
     const editRow = (rowMap, rowKey) => {
         if (rowMap[rowKey]) {
             rowMap[rowKey].closeRow();
-
-            // When sliding down form, wipe edit state
-            setId('');
-            setEdit('')
         }
 
-        // Open form with list id and list title
-        setId(rowKey);
-        setEdit(lists.find(list => list._id === rowKey).title)
-
         toggleSlide();
+
+        // Check if VocabularyItems are shown or WordListItems as searchResults
+        if (!search) {
+            const editData = [lists.find(list => list._id === rowKey).title];
+            const editId = rowKey;
+
+            openEdit('editList', editData, editId);
+
+        } else {
+            const editData = [
+                words.find(word => word._id === rowKey).spanish,
+                words.find(word => word._id === rowKey).english
+            ]
+
+            const editId = rowKey;
+
+            openEdit('editWord', editData, editId);
+        }
     }
 
-    // Delete button
+
+    // hidden delete button
     const deleteRow = (rowMap, rowKey) => {
         if (rowMap[rowKey]) {
             rowMap[rowKey].closeRow();
 
-            // Delete list, rowKey = id
-            deleteList(rowKey)
+            if (!search) {
+                // Delete list, rowKey = id
+                deleteList(rowKey)
+            } else {
+                deleteWord(rowKey)
+            }
         }
     }
 
 
-
     return (
         <>
-        
-        
-                    {/* Header with word count and Add new Word button */}
-                    <View style={styles.backgroundHeader}>
-                        <View style={styles.header}>
-                            <Text style={styles.title}>{words.length} Words</Text>
-                            <TouchableOpacity style={styles.addButton}>
-                                <Feather name="plus" size={17} color="#f3c74f" />
-                                <Text style={styles.addButtonText} onPress={toggleSlide}>Add new list</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <SearchBar />
-                    </View>
 
-                    {/* Render lists, filter words to pass into respective list */}
-                    <View style={styles.backgroundContent}>
-                        <SwipeListView
-                            showsHorizontalScrollIndicator={false}
-                            data={lists}
-                            keyExtractor={(list) => list._id}
-                            renderItem={renderItem}
-                            renderHiddenItem={renderHiddenItem}
-                            rightOpenValue={-170}
-                        />
-                    </View>
+            {/* Header with word count and Add new Word button */}
+            <View style={styles.backgroundHeader}>
+                <View style={styles.header}>
+                    <Text style={styles.title}>{words.length} Words</Text>
+                    <TouchableOpacity
+                        style={styles.addButton}
+                        onPress={() => {
+                            toggleSlide();
+                            openEdit('createList');
+                        }}
+                    >
+                        <Feather name="plus" size={17} color="#f3c74f" />
+                        <Text style={styles.addButtonText} >Add new list</Text>
+                    </TouchableOpacity>
+                </View>
+                <SearchBar />
+            </View>
 
-                    <SlideScreen>
-                        <ListForm
-                            headerText="Create new list"
-                            type="list"
-                            buttonText="Save list"
-                            onSubmit={onSubmit}
-                            editList={edit}
-                            listId={id}
-                        />
-                    </SlideScreen>
-                </>
+            {/* Render vocabulary lists or search results */}
+            <View style={styles.backgroundContent}>
+                <SwipeListView
+                    showsHorizontalScrollIndicator={false}
+                    data={!search ? lists : searchResults}
+                    keyExtractor={(list) => list._id}
+                    renderItem={({ item }) => {
+                        return !search ? 
+                            <VocabularyItem list={item} navigation={navigation} /> :
+                            <WordListItem word={item} />
+
+                    }}
+                    renderHiddenItem={({ item }, rowMap) => {
+                        return (
+                            <HiddenItemWithActions
+                                data={item}
+                                rowMap={rowMap}
+                                onEdit={() => editRow(rowMap, item._id)}
+                                onDelete={() => deleteRow(rowMap, item._id)}
+                                item={!search ? item.title : item.spanish}
+                            />
+                        )
+                    }}
+                    rightOpenValue={-170}
+                />
+            </View>
+
+            <SlideScreen>
+                <EditForm
+                    headerText={editMode === 'createList' ? 'Create new list' : editMode === 'editList' ? 'Update list' : 'Update word'}
+                    type="list"
+                    buttonText="Save list"
+                    firstPlaceholder="List name"
+                />
+            </SlideScreen>
+        </>
     )
 }
 
@@ -176,10 +180,11 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
     words: state.words.words,
     lists: state.lists.lists,
-    search: state.utils.searchTerm
+    editMode: state.utils.edit.editMode,
+    search: state.utils.search.term
 })
 
 
 
-export default connect(mapStateToProps, { saveList, toggleSlide, deleteList, updateList })(VocabularyScreen)
+export default connect(mapStateToProps, { toggleSlide, openEdit, deleteList, deleteWord })(VocabularyScreen)
 

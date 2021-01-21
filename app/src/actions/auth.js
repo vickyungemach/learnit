@@ -1,11 +1,15 @@
 import api from '../utils/api';
 import { navigate } from '../navigation';
+import { setError } from './alerts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { 
-    LOGIN_SUCCESS, 
-    LOGIN_FAIL, 
-    CLEAR_ERROR 
+import {
+    LOGIN_SUCCESS,
+    LOGIN_FAIL,
+    GET_USER_SUCCESS,
+    REGISTER_SUCCESS,
+    REGISTER_FAIL,
+    SIGN_OUT
 } from './types';
 
 
@@ -14,46 +18,82 @@ import {
 =================================== */
 export const login = (name, password) => async dispatch => {
     const body = JSON.stringify({ name, password });
-    
+
     try {
         const res = await api.post('/user/login', body);
-        
+
         await AsyncStorage.setItem('token', res.data.token)
 
         dispatch({
             type: LOGIN_SUCCESS,
-            payload: res.data
+            payload: res.data.token
         })
 
-        // Redirect to Home Screen after login
-        navigate('Home');
+        // Get user info and redirect to home
+        getUser(dispatch);
 
     } catch (err) {
-        
-        // Dispatch the error message
-        dispatch({
-            type: LOGIN_FAIL,
-            payload: 'Something went wrong'
-        })
+        dispatch(setError('Login failed'));
 
-        // Remove error message after 3 sec
-        setTimeout(function() {
-            dispatch({
-                type: LOGIN_FAIL,
-                payload: ''
-            })
-        }, 3000)
+        dispatch({
+            type: LOGIN_FAIL
+        })
     }
 }
 
 
 /* ===================================
-   Clear error message
+   Register user
 =================================== */
-export  const clearError = () => dispatch => {
+export const register = (name, password) => async dispatch => {
+    try {
+        const res = await api.post('/user/register', { name, password });
+        
+        await AsyncStorage.setItem('token', res.data.token)
+    
+        dispatch({
+            type: REGISTER_SUCCESS,
+            payload: res.data.token
+        })
+    
+        getUser(dispatch);
+    } catch (err) {
+        dispatch(setError(err.response.data.msg));
+
+        dispatch({
+            type: REGISTER_FAIL
+        })
+    }
+
+}
+
+
+/* ===================================
+   Get user info
+=================================== */
+export const getUser = async (dispatch) => {
+    const res = await api.get('/user');
+
     dispatch({
-        type: CLEAR_ERROR
+        type: GET_USER_SUCCESS,
+        payload: res.data
     })
+
+    // Redirect to Home Screen after login
+    navigate('Home');
+}
+
+/* ===================================
+   Logout user
+=================================== */
+export const logout = () => async dispatch => {
+    await AsyncStorage.removeItem('token');
+
+    dispatch({
+        type: SIGN_OUT
+    })
+
+    navigate('loginFlow')
 }
 
 
@@ -63,7 +103,7 @@ export  const clearError = () => dispatch => {
 =================================== */
 export const localLogin = () => async dispatch => {
     const token = await AsyncStorage.getItem('token');
-    if(token) {
+    if (token) {
         dispatch({
             type: LOGIN_SUCCESS,
             payload: token

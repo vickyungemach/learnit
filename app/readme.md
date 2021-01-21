@@ -38,16 +38,23 @@ import { toggleSlide } from 'actions/utils'
 ```
 ~
 
-## WordForm
+## EditForm
 **headerText** *String* <br>
 **buttonText** *String* <br>
-**onSubmit** *Function* <br>
-**editWord** *optional String* <br>
-**editTranslation** *optional String*
+**firstPlaceholder** *String* <br>
+**secondPlaceholder** *String* <br>
+
 
 ```javascript
 import WordForm from 'components/WordForm'
 
 <WordForm />
 ```
+\
+\
+\
+\
+~
+
+
 

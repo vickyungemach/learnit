@@ -1,12 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
+import { connect } from 'react-redux';
 
 
 const VocabularyItem = (props) => {
     // VocabularyScreen props
-    const { list, words, navigation } = props;
+    const { list, navigation } = props;
+
+    // mapStateToProps
+    const { stateWords } = props;
     
+    const listWords = stateWords.filter(word => {
+        return word.list._id === list._id
+    })
+
 
     return (
 
@@ -16,7 +24,7 @@ const VocabularyItem = (props) => {
                 {/* List title and word count */}
                 <View>
                     <Text style={styles.title}>{list.title}</Text>
-                    <Text style={styles.count}>{words.length} Words</Text>
+                    <Text style={styles.count}>{listWords.length} Words</Text>
                 </View>
                 <Entypo style={styles.chevron} name="chevron-right" size={24} color="lightgrey" />
             </View>
@@ -64,4 +72,8 @@ const styles = StyleSheet.create({
     }
 })
 
-export default VocabularyItem;
+const mapStateToProps = state => ({
+    stateWords: state.words.words
+})
+
+export default connect(mapStateToProps)(VocabularyItem);

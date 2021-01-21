@@ -1,24 +1,45 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import { getReview } from '../actions/review';
 
 
 const RankingItem = (props) => {
+
     // RankingScreen props
-    const { emoji, title, count, color } = props
-    
+    const { emoji, title, rating, color, navigation } = props
+
+    // actions
+    const { getReview } = props;
+
+    // mapStateToProps 
+    const { words } = props;
+
+
+    // Get words based on rating prop
+   const rankWords = words.filter(word => {
+       return word.rating >= rating[0] && word.rating <= rating[1]
+   })
+   
     return (
         <View style={styles.container}>
 
             {/* Emoji and level name */}
-            <View style={styles.level}>
+            <TouchableOpacity style={styles.level}>
                 <Text style={styles.levelEmoji}>{emoji}</Text>
                 <Text style={styles.levelTitle}>{title}</Text>
-            </View>
-            
+            </TouchableOpacity>
+
             {/* Word count tag */}
-            <View style={[styles.count, {backgroundColor: color}]}>
-                <Text style={styles.countTag}>{count}</Text>
-            </View>
+            <TouchableOpacity
+                style={[styles.count, { backgroundColor: color }]}
+                onPress={() => {
+                    getReview(rankWords);
+                    navigation.navigate('ReviewI');
+                }}
+            >
+                <Text style={styles.countTag}>{rankWords && rankWords.length}</Text>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -55,13 +76,16 @@ const styles = StyleSheet.create({
         paddingVertical: 7,
         width: 50,
         alignItems: 'center'
-    }, 
+    },
 
     countTag: {
         fontFamily: 'lato-black',
         color: '#fff'
-    } 
+    }
 })
 
+const mapStateToProps = state => ({
+    words: state.words.words
+})
 
-export default RankingItem;
+export default connect(mapStateToProps, { getReview })(RankingItem);

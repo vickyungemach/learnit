@@ -1,9 +1,22 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import RankingItem from '../components/RankingItem'
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { connect } from 'react-redux';
+import { getReview } from '../actions/review';
+import RankingItem from '../components/RankingItem';
 
 
-const RankingScreen = () => {
+const RankingScreen = (props) => {
+    const { navigation } = props;
+
+    // mapStateToProps
+    const { getReview } = props;
+
+    // Reset review list 
+    navigation.addListener('didFocus', () => {
+        getReview();
+      }
+    );
+
     return (
         <>
             {/* Header */}
@@ -12,16 +25,16 @@ const RankingScreen = () => {
             </View>
 
             <View style={styles.backgroundContent}>
-                <RankingItem emoji="🎓" title="Graduated" count="130" color="#40D642" />
-                <RankingItem emoji="🍾" title="Almost there" count="76" color="#55E659"/>
-                <RankingItem emoji="♠️" title="Acing it" count="12" color="#96EC4E" />
-                <RankingItem emoji="✨" title="Getting pretty good" count="40" color="#FFEA03" />
-                <RankingItem emoji="🎩" title="Keep going" count="88" color="#FFDA36" />
-                <RankingItem emoji="🏳" title="Half way there" count="123" color="#FFC71E" />
-                <RankingItem emoji="💎" title="Getting there" count="72" color="#FFAE36" />
-                <RankingItem emoji="📖" title="Needs some work" count="99" color="#FF7736" />
-                <RankingItem emoji="🗝" title="Recently learned" count="170" color="#FF3938" />
-                <RankingItem emoji="🧊" title="Getting started" count="143" color="#ED1D1B" />
+                <RankingItem emoji="🎓" title="Mastered" rating={[18, 200]} color="#40D642" navigation={navigation} />
+                <RankingItem emoji="🍾" title="Almost there" rating={[16, 17]} color="#55E659" navigation={navigation} />
+                <RankingItem emoji="♠️" title="Acing it" rating={[14, 15]} color="#96EC4E" navigation={navigation} />
+                <RankingItem emoji="✨" title="Getting pretty good" rating={[12, 13]} color="#FFEA03" navigation={navigation} />
+                <RankingItem emoji="🎩" title="Keep going" rating={[10, 11]} color="#FFDA36" navigation={navigation} />
+                <RankingItem emoji="🏳" title="Half way there" rating={[8, 9]} color="#FFC71E" navigation={navigation} />
+                <RankingItem emoji="💎" title="Getting there" rating={[6, 7]} color="#FFAE36" navigation={navigation} />
+                <RankingItem emoji="📖" title="Needs some work" rating={[4, 5]} color="#FF7736" navigation={navigation} />
+                <RankingItem emoji="🗝" title="Recently learned" rating={[2, 3]} color="#FF3938" navigation={navigation} />
+                <RankingItem emoji="🧊" title="Getting started" rating={[0, 1]} color="#ED1D1B" navigation={navigation} />
             </View>
         </>
     )
@@ -46,7 +59,11 @@ const styles = StyleSheet.create({
         fontFamily: 'lato-black',
         marginBottom: 7
     },
+
+    close: {
+        marginTop: 20,
+        color: '#1c1e21'
+    }
 })
 
-
-export default RankingScreen;
+export default connect(null, { getReview })(RankingScreen);

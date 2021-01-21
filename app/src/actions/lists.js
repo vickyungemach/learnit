@@ -31,8 +31,10 @@ export const getLists = () => async dispatch => {
 /* ===================================
    Save new list
 =================================== */
+               // ['new list title']
 export const saveList = (title) => async dispatch => {
-    const body = JSON.stringify({ title });
+
+    const body = JSON.stringify({title: title[0]});
 
     try {
         const res = await api.post('/lists', body);
@@ -57,10 +59,10 @@ export const saveList = (title) => async dispatch => {
 /* ===================================
    Update list
 =================================== */
-
+                   // ['new list title'], id
 export const updateList = (title, id) => async dispatch => {
     try {
-        const body = JSON.stringify({ title });
+        const body = JSON.stringify({ title: title[0] });
 
         const res = await api.put(`/lists/${id}`, body);
 
@@ -77,7 +79,6 @@ export const updateList = (title, id) => async dispatch => {
 /* ===================================
    Delete list
 =================================== */
-
 export const deleteList = id => async dispatch => {
     try {
         const res = await api.delete(`lists/${id}`);

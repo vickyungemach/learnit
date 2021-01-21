@@ -1,8 +1,13 @@
 import { Animated, Keyboard } from 'react-native';
 
-import { 
+import {
     TOGGLE_SLIDESCREEN,
-    GET_SEARCH_TERM
+    GET_SEARCH_TERM,
+    OPEN_CREATE_LIST,
+    OPEN_EDIT_LIST,
+    OPEN_CREATE_WORD,
+    OPEN_EDIT_WORD,
+    CLEAR_SEARCH
 } from './types';
 
 
@@ -10,13 +15,13 @@ import {
    Toggle SlideScreen
 =================================== */
 export const toggleSlide = () => async (dispatch, getState) => {
-    
+
     // Get isHidden and bounceValue from state
     const isHidden = getState().utils.slideScreen.isHidden;
     const bounceValue = getState().utils.slideScreen.bounceValue;
 
     let toValue = 1000;
-    
+
     if (isHidden) {
         toValue = 0;
     }
@@ -41,17 +46,60 @@ export const toggleSlide = () => async (dispatch, getState) => {
 
 
 /* ===================================
-   Search term
+   Open EditForm 
 =================================== */
-export const getSearchTerm = (searchedWord) => async dispatch => {
+export const openEdit = (editType, editData, editId) => dispatch => {
+
+    // EditType: createWord | editWord | createList | editList
+    // EditData: ['word', 'translation'] | ['listname']
+    // EditId: Id of word/list to edit
+
     try {
-        
-        dispatch({
-            type: GET_SEARCH_TERM,
-            payload: searchedWord
-        })
+        switch(editType) {
+
+            case 'createList':
+                return dispatch({
+                    type: OPEN_CREATE_LIST
+                })
+
+            case 'editList':
+                return dispatch({
+                    type: OPEN_EDIT_LIST,
+                    payload: { editData, editId }
+                })
+
+            case 'createWord':
+                return dispatch({
+                    type: OPEN_CREATE_WORD,
+                    payload: { editId }
+                })
+
+            case 'editWord':
+                return dispatch({
+                    type: OPEN_EDIT_WORD,
+                    payload: { editData, editId}
+                })
+        }
+
 
     } catch (err) {
-        console.log(err.message);
+
     }
+}
+
+
+/* ===================================
+   Search vocabulary
+=================================== */
+export const getSearchTerm = (searchedWord) => async dispatch => {
+    dispatch({
+        type: GET_SEARCH_TERM,
+        payload: searchedWord
+    })
+}
+
+export const clearSearch = () => dispatch => {
+    dispatch({
+        type: CLEAR_SEARCH
+    })
 }

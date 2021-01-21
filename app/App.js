@@ -6,6 +6,7 @@ import { store } from './store';
 import React, { useState } from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 
 // Utils
 import { setNavigator } from './src/navigation'
@@ -23,6 +24,7 @@ import ReviewScreenII from './src/screens/ReviewScreenII';
 import ReviewScreenI from './src/screens/ReviewScreenI';
 import RankingScreen from './src/screens/RankingScreen';
 import SignupScreen from './src/screens/SignupScreen';
+import AccountScreen from './src/screens/AccountScreen';
 
 
 // Load fonts from assets/fonts
@@ -38,6 +40,24 @@ const getFonts = () => Font.loadAsync({
 })
 
 
+// Default navigationOptions 
+const defaultHeader = {
+  cardStyle: {
+    backgroundColor: 'white'
+  },
+  headerStyle: {
+    backgroundColor: '#FAFAFC',
+    height: 110
+  },
+  headerTintColor: '#413d3d',
+  headerTitleStyle: {
+    fontFamily: 'lobstertwo-regular',
+    fontSize: 27
+  },
+  headerBackTitle: null
+}
+
+
 // Create Navigation
 const switchNavigator = createSwitchNavigator({
 
@@ -47,34 +67,46 @@ const switchNavigator = createSwitchNavigator({
     Signup: { screen: SignupScreen, navigationOptions: { headerShown: false } }
   }),
 
+
   // Main Screens
   mainFlow: createStackNavigator({
 
-    Home: HomeScreen,
+    // Home Screens
+    homeFlow: createStackNavigator({
+      
+      // Menu Screens
+      menuFlow: createDrawerNavigator({
+        Home: HomeScreen,
+        Account: AccountScreen
+      }),
+
+      Home: HomeScreen,
+      ReviewI: ReviewScreenI,
+      ReviewII: ReviewScreenII,
+      Ranking: RankingScreen
+    }, {
+      initalRouteName: 'Home',
+      mode: 'modal',
+      navigationOptions: { 
+        headerShown: false 
+      },
+      defaultNavigationOptions: {
+        ...defaultHeader,
+        title: 'LearnIt'
+      }
+    }),
+
     Vocabulary: VocabularyScreen,
     WordList: WordListScreen,
-    ReviewI: ReviewScreenI,
-    ReviewII: ReviewScreenII,
-    Ranking: RankingScreen
+
 
     // Default Navigation Options
   }, {
-    initialRouteName: 'Home',
+    initialRouteName: 'homeFlow',
+    mode: 'card',
     defaultNavigationOptions: {
-      title: 'LearnIt',
-      cardStyle: {
-        backgroundColor: 'white'
-      },
-      headerStyle: {
-        backgroundColor: '#FAFAFC',
-        height: 110
-      },
-      headerTintColor: '#413d3d',
-      headerTitleStyle: {
-        fontFamily: 'lobstertwo-regular',
-        fontSize: 27
-      },
-      headerBackTitle: null
+      ...defaultHeader,
+      title: 'LearnIt'
     }
   })
 })

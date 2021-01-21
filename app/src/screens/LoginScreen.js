@@ -1,17 +1,24 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import AppLoading from 'expo-app-loading';
 import pineapple from '../../assets/pineapple.png';
 import { connect } from 'react-redux'
-import { login, clearError, localLogin } from '../actions/auth';
+import { login, localLogin } from '../actions/auth';
+import { clearError } from '../actions/alerts';
 import ErrorMessage from '../components/ErrorMessage';
 
 
 const LoginScreen = (props) => {
     const { navigation } = props;
 
-    // mapStateToProps & actions/auth
-    const { auth: { error }, login, clearError, localLogin } = props;
+    // actions
+    const { login, localLogin, clearError} = props;
+
+    // mapStateToProps
+    const { error } = props;
+
+
 
     // Wait until AsyncStorage was checked for token
     const [loginCheck, setLoginCheck ] = useState(false);
@@ -147,7 +154,7 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    error: state.alerts.error
 })
 
 export default connect(mapStateToProps, { login, clearError, localLogin })(LoginScreen)

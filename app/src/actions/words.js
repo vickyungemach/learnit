@@ -1,4 +1,5 @@
 import api from '../utils/api';
+import { setError } from './alerts';
 
 import {
     GET_WORDS_SUCCESS,
@@ -23,23 +24,21 @@ export const getWords = () => async dispatch => {
         })
 
     } catch (err) {
-        console.log(err)
+        dispatch(setError('Couldnt load words'))
 
         dispatch({
-            type: GET_WORDS_FAIL,
-            payload: 'Couldnt get words'
+            type: GET_WORDS_FAIL
         })
     }
 }
 
 
-
 /* ===================================
    Save new word
 =================================== */
-export const saveWord = (spanish, english, list) => async dispatch => {
-    const body = JSON.stringify({ spanish, english, list });
-    console.log(body)
+                     // ['spanish', 'english'], listId
+export const saveWord = (editData, list) => async dispatch => {
+    const body = JSON.stringify({ spanish: editData[0], english: editData[1], list });
 
     try {
         const res = await api.post('/words', body);
@@ -50,20 +49,11 @@ export const saveWord = (spanish, english, list) => async dispatch => {
         })
 
     } catch (err) {
-        console.error(err.message);
+        dispatch(setError('Couldnt save word'))
 
         dispatch({
-            type: SAVE_WORD_FAIL,
-            payload: 'Couldnt save word'
+            type: SAVE_WORD_FAIL
         })
-
-        // Remove error message after 3 sec
-        setTimeout(function () {
-            dispatch({
-                type: LOGIN_FAIL,
-                payload: ''
-            })
-        }, 3000)
     }
 }
 
@@ -71,9 +61,10 @@ export const saveWord = (spanish, english, list) => async dispatch => {
 /* ===================================
    Update word
 =================================== */
-export const updateWord = (word, translation, id) => async dispatch => {
+                        // ['spanish', 'english'], id
+export const updateWord = (editData, id) => async dispatch => {
     try {
-        const body = { spanish: word, english: translation }
+        const body = { spanish: editData[0], english: editData[1] }
         const res = await api.put(`/words/${id}`, body);
         
         dispatch({
@@ -81,10 +72,13 @@ export const updateWord = (word, translation, id) => async dispatch => {
             payload: res.data
         })
     } catch (err) {
-        console.log(err.message)
+        dispatch(setError('Couldnt update word'))
+
+        dispatch({
+            type: SAVE_WORD_FAIL
+        })
     }
 }
-
 
 
 /* ===================================

@@ -3,14 +3,25 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'reac
 import { NavigationEvents } from 'react-navigation';
 import pineapple from '../../assets/pineapple.png';
 import { connect } from 'react-redux';
-import { clearError } from '../actions/auth';
+import { register } from '../actions/auth';
+import { clearError } from '../actions/alerts';
 import ErrorMessage from '../components/ErrorMessage';
 
 
-const SignupScreen = ({ navigation, error, clearError }) => {
+const SignupScreen = (props) => {
+    const { navigation } = props;
+
+    // actions
+    const { register, clearError } = props;
+
+    // mapStateToProps
+    const { error } = props;
+
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
+
 
     return (
         <View style={styles.container}>
@@ -57,7 +68,7 @@ const SignupScreen = ({ navigation, error, clearError }) => {
             />
 
             {/* Signup button */}
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() => register(username, password)}>
                 <Text style={styles.buttonText}>Sign in</Text>
             </TouchableOpacity>
 
@@ -132,7 +143,7 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = state => ({
-    error: state.auth.error
+    error: state.alerts.error
 })
 
-export default connect(mapStateToProps, { clearError })(SignupScreen)
+export default connect(mapStateToProps, { register, clearError })(SignupScreen)
