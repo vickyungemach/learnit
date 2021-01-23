@@ -67,7 +67,7 @@ router.delete('/:id', async (req, res) => {
 
     list.remove();
 
-    res.status(200).json({list})
+    res.status(200).json(list)
 })
 
 
